@@ -1,6 +1,6 @@
 import React from 'react'
-import styled from 'styled-components';
 import { Card, CardContent, Typography, Grid, Box, Avatar, Container, Paper } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useSelector } from 'react-redux';
 
 const StudentProfile = () => {
@@ -100,7 +100,7 @@ const StudentProfile = () => {
 
 export default StudentProfile
 
-const StyledPaper = styled(Paper)`
-  padding: 20px;
-  margin-bottom: 20px;
-`;
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  padding: '20px',
+  marginBottom: '20px',
+}));

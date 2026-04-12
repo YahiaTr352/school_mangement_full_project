@@ -5,7 +5,15 @@ import { registerUser } from '../../../redux/userRelated/userHandle';
 import Popup from '../../../components/Popup';
 import { underControl } from '../../../redux/userRelated/userSlice';
 import { getAllSclasses } from '../../../redux/sclassRelated/sclassHandle';
-import { CircularProgress } from '@mui/material';
+import { 
+    Box, Button, CircularProgress, Stack, TextField, 
+    Typography, Container, Paper, IconButton, Divider, 
+    Avatar, MenuItem, FormControl, InputLabel, Select
+} from '@mui/material';
+import { motion } from "framer-motion";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import SaveIcon from '@mui/icons-material/Save';
 
 const AddStudent = ({ situation }) => {
     const dispatch = useDispatch()
@@ -22,13 +30,13 @@ const AddStudent = ({ situation }) => {
     const [className, setClassName] = useState('')
     const [sclassName, setSclassName] = useState('')
 
-    const adminID = currentUser._id
+    const adminID = currentUser?._id
     const role = "Student"
     const attendance = []
 
     useEffect(() => {
         if (situation === "Class") {
-            setSclassName(params.id);
+            setSclassName(params.id || '');
         }
     }, [params.id, situation]);
 
@@ -37,7 +45,9 @@ const AddStudent = ({ situation }) => {
     const [loader, setLoader] = useState(false)
 
     useEffect(() => {
-        dispatch(getAllSclasses(adminID, "Sclass"));
+        if (adminID) {
+            dispatch(getAllSclasses(adminID, "Sclass"));
+        }
     }, [adminID, dispatch]);
 
     const changeHandler = (event) => {
@@ -45,11 +55,13 @@ const AddStudent = ({ situation }) => {
             setClassName('Select Class');
             setSclassName('');
         } else {
-            const selectedClass = sclassesList.find(
+            const selectedClass = sclassesList?.find(
                 (classItem) => classItem.sclassName === event.target.value
             );
-            setClassName(selectedClass.sclassName);
-            setSclassName(selectedClass._id);
+            if (selectedClass) {
+                setClassName(selectedClass.sclassName);
+                setSclassName(selectedClass._id);
+            }
         }
     }
 
@@ -57,7 +69,7 @@ const AddStudent = ({ situation }) => {
 
     const submitHandler = (event) => {
         event.preventDefault()
-        if (sclassName === "") {
+        if (!sclassName) {
             setMessage("Please select a classname")
             setShowPopup(true)
         }
@@ -85,57 +97,155 @@ const AddStudent = ({ situation }) => {
     }, [status, navigate, error, response, dispatch]);
 
     return (
-        <>
-            <div className="register">
-                <form className="registerForm" onSubmit={submitHandler}>
-                    <span className="registerTitle">Add Student</span>
-                    <label>Name</label>
-                    <input className="registerInput" type="text" placeholder="Enter student's name..."
-                        value={name}
-                        onChange={(event) => setName(event.target.value)}
-                        autoComplete="name" required />
+        <Container maxWidth="sm" sx={{ mt: 4, mb: 4 }}>
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+            >
+                <Box sx={{ mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <Stack direction="row" alignItems="center" spacing={2}>
+                        <IconButton onClick={() => navigate(-1)} sx={{ color: '#6366F1' }}>
+                            <ArrowBackIcon />
+                        </IconButton>
+                        <Box>
+                            <Typography variant="h4" sx={{ fontWeight: 800, color: '#1E1B4B', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
+                                Add New Student
+                            </Typography>
+                            <Typography variant="body1" sx={{ color: '#64748B' }}>
+                                {situation === "Class" ? "Enroll a student to the selected class" : "Register a new student to the system"}
+                            </Typography>
+                        </Box>
+                    </Stack>
+                </Box>
 
-                    {
-                        situation === "Student" &&
-                        <>
-                            <label>Class</label>
-                            <select
-                                className="registerInput"
-                                value={className}
-                                onChange={changeHandler} required>
-                                <option value='Select Class'>Select Class</option>
-                                {sclassesList.map((classItem, index) => (
-                                    <option key={index} value={classItem.sclassName}>
-                                        {classItem.sclassName}
-                                    </option>
-                                ))}
-                            </select>
-                        </>
-                    }
+                <Paper elevation={0} sx={{ 
+                    padding: '40px', 
+                    borderRadius: '24px !important', 
+                    backgroundColor: '#FFFFFF !important',
+                    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important',
+                    border: '1px solid #F1F5F9 !important'
+                }}>
+                    <Box sx={{ textAlign: 'center', mb: 4 }}>
+                        <Avatar 
+                            sx={{ 
+                                width: 80, height: 80, mx: 'auto', mb: 2, 
+                                bgcolor: '#EEF2FF', color: '#6366F1'
+                            }}
+                        >
+                            <GroupAddIcon sx={{ fontSize: 40 }} />
+                        </Avatar>
+                        <Typography variant="h5" sx={{ fontWeight: 700, color: '#1E1B4B' }}>
+                            Student Registration
+                        </Typography>
+                    </Box>
 
-                    <label>Roll Number</label>
-                    <input className="registerInput" type="number" placeholder="Enter student's Roll Number..."
-                        value={rollNum}
-                        onChange={(event) => setRollNum(event.target.value)}
-                        required />
+                    <Divider sx={{ mb: 4 }} />
 
-                    <label>Password</label>
-                    <input className="registerInput" type="password" placeholder="Enter student's password..."
-                        value={password}
-                        onChange={(event) => setPassword(event.target.value)}
-                        autoComplete="new-password" required />
+                    <form onSubmit={submitHandler}>
+                        <Stack spacing={3}>
+                            <TextField
+                                fullWidth
+                                label="Full Name"
+                                variant="outlined"
+                                value={name}
+                                onChange={(event) => setName(event.target.value)}
+                                placeholder="Enter student's full name"
+                                required
+                                autoComplete="name"
+                                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '12px' } }}
+                            />
 
-                    <button className="registerButton" type="submit" disabled={loader}>
-                        {loader ? (
-                            <CircularProgress size={24} color="inherit" />
-                        ) : (
-                            'Add'
-                        )}
-                    </button>
-                </form>
-            </div>
+                            {situation === "Student" && (
+                                <FormControl fullWidth sx={{ '& .MuiOutlinedInput-root': { borderRadius: '12px' } }}>
+                                    <InputLabel id="select-class-label">Class</InputLabel>
+                                    <Select
+                                        labelId="select-class-label"
+                                        value={className}
+                                        label="Class"
+                                        onChange={changeHandler}
+                                        required
+                                    >
+                                        <MenuItem value='Select Class'>Select Class</MenuItem>
+                                        {sclassesList?.map((classItem, index) => (
+                                            <MenuItem key={index} value={classItem.sclassName}>
+                                                {classItem.sclassName}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                            )}
+
+                            <TextField
+                                fullWidth
+                                label="Roll Number"
+                                type="number"
+                                variant="outlined"
+                                value={rollNum}
+                                onChange={(event) => setRollNum(event.target.value)}
+                                placeholder="Enter roll number"
+                                required
+                                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '12px' } }}
+                            />
+
+                            <TextField
+                                fullWidth
+                                label="Password"
+                                type="password"
+                                variant="outlined"
+                                value={password}
+                                onChange={(event) => setPassword(event.target.value)}
+                                placeholder="Create a password"
+                                required
+                                autoComplete="new-password"
+                                sx={{ '& .MuiOutlinedInput-root': { borderRadius: '12px' } }}
+                            />
+
+                            <Box sx={{ display: 'flex', gap: 2, pt: 2 }}>
+                                <Button
+                                    fullWidth
+                                    size="large"
+                                    variant="outlined"
+                                    onClick={() => navigate(-1)}
+                                    sx={{
+                                        borderRadius: '12px',
+                                        padding: '14px',
+                                        textTransform: 'none',
+                                        fontWeight: 600,
+                                        color: '#64748B',
+                                        borderColor: '#E2E8F0',
+                                        '&:hover': { backgroundColor: '#F8FAFC', borderColor: '#CBD5E1' }
+                                    }}
+                                >
+                                    Cancel
+                                </Button>
+                                <Button
+                                    fullWidth
+                                    size="large"
+                                    variant="contained"
+                                    type="submit"
+                                    disabled={loader}
+                                    startIcon={loader ? <CircularProgress size={20} color="inherit" /> : <SaveIcon />}
+                                    sx={{
+                                        backgroundColor: '#6366F1',
+                                        '&:hover': { backgroundColor: '#4F46E5' },
+                                        borderRadius: '12px',
+                                        padding: '14px',
+                                        textTransform: 'none',
+                                        fontWeight: 700,
+                                        fontSize: '1rem',
+                                        boxShadow: '0 4px 6px -1px rgba(99, 102, 241, 0.3)',
+                                    }}
+                                >
+                                    {loader ? 'Adding...' : 'Add Student'}
+                                </Button>
+                            </Box>
+                        </Stack>
+                    </form>
+                </Paper>
+            </motion.div>
             <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
-        </>
+        </Container>
     )
 }
 

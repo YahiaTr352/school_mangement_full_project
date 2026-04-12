@@ -1,12 +1,22 @@
-import { useEffect } from "react";
-import * as React from 'react';
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import { getClassStudents } from "../../redux/sclassRelated/sclassHandle";
-import { Paper, Box, Typography, ButtonGroup, Button, Popper, Grow, ClickAwayListener, MenuList, MenuItem } from '@mui/material';
-import { BlackButton, BlueButton} from "../../components/buttonStyles";
-import TableTemplate from "../../components/TableTemplate";
+import { 
+    Paper, Box, Typography, ButtonGroup, Button, Popper, Grow, 
+    ClickAwayListener, MenuList, MenuItem, Container, Stack, 
+    CircularProgress, Tooltip, IconButton, Divider
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { motion } from 'framer-motion';
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
+import GroupIcon from '@mui/icons-material/Group';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
+import SchoolIcon from '@mui/icons-material/School';
+
+import TableTemplate from "../../components/TableTemplate";
+import { BlueButton } from "../../components/buttonStyles";
 
 const TeacherClassDetails = () => {
     const navigate = useNavigate()
@@ -18,7 +28,9 @@ const TeacherClassDetails = () => {
     const subjectID = currentUser.teachSubject?._id
 
     useEffect(() => {
-        dispatch(getClassStudents(classID));
+        if (classID) {
+            dispatch(getClassStudents(classID));
+        }
     }, [dispatch, classID])
 
     if (error) {
@@ -30,7 +42,7 @@ const TeacherClassDetails = () => {
         { id: 'rollNum', label: 'Roll Number', minWidth: 100 },
     ]
 
-    const studentRows = sclassStudents.map((student) => {
+    const studentRows = sclassStudents && sclassStudents.length > 0 && sclassStudents.map((student) => {
         return {
             name: student.name,
             rollNum: student.rollNum,
@@ -41,24 +53,16 @@ const TeacherClassDetails = () => {
     const StudentsButtonHaver = ({ row }) => {
         const options = ['Take Attendance', 'Provide Marks'];
 
-        const [open, setOpen] = React.useState(false);
-        const anchorRef = React.useRef(null);
-        const [selectedIndex, setSelectedIndex] = React.useState(0);
+        const [open, setOpen] = useState(false);
+        const anchorRef = useRef(null);
+        const [selectedIndex, setSelectedIndex] = useState(0);
 
         const handleClick = () => {
-            console.info(`You clicked ${options[selectedIndex]}`);
             if (selectedIndex === 0) {
-                handleAttendance();
+                navigate(`/Teacher/class/student/attendance/${row.id}/${subjectID}`)
             } else if (selectedIndex === 1) {
-                handleMarks();
+                navigate(`/Teacher/class/student/marks/${row.id}/${subjectID}`)
             }
-        };
-
-        const handleAttendance = () => {
-            navigate(`/Teacher/class/student/attendance/${row.id}/${subjectID}`)
-        }
-        const handleMarks = () => {
-            navigate(`/Teacher/class/student/marks/${row.id}/${subjectID}`)
         };
 
         const handleMenuItemClick = (event, index) => {
@@ -74,37 +78,51 @@ const TeacherClassDetails = () => {
             if (anchorRef.current && anchorRef.current.contains(event.target)) {
                 return;
             }
-
             setOpen(false);
         };
+
         return (
-            <>
+            <Stack direction="row" spacing={1} justifyContent="center" alignItems="center">
                 <BlueButton
                     variant="contained"
-                    onClick={() =>
-                        navigate("/Teacher/class/student/" + row.id)
-                    }
+                    startIcon={<VisibilityIcon />}
+                    onClick={() => navigate("/Teacher/class/student/" + row.id)}
+                    sx={{ borderRadius: '10px', textTransform: 'none', fontWeight: 600 }}
                 >
                     View
                 </BlueButton>
-                <React.Fragment>
-                    <ButtonGroup variant="contained" ref={anchorRef} aria-label="split button">
+                
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <ButtonGroup 
+                        variant="contained" 
+                        ref={anchorRef} 
+                        aria-label="split button"
+                        sx={{ 
+                            boxShadow: 'none',
+                            '& .MuiButton-root': {
+                                backgroundColor: '#4338CA',
+                                borderRadius: '10px 0 0 10px',
+                                textTransform: 'none',
+                                fontWeight: 600,
+                                '&:hover': { backgroundColor: '#3730A3' }
+                            },
+                            '& .MuiButton-containedSizeSmall': {
+                                borderRadius: '0 10px 10px 0',
+                                minWidth: '32px',
+                                px: 1
+                            }
+                        }}
+                    >
                         <Button onClick={handleClick}>{options[selectedIndex]}</Button>
-                        <BlackButton
+                        <Button
                             size="small"
-                            aria-controls={open ? 'split-button-menu' : undefined}
-                            aria-expanded={open ? 'true' : undefined}
-                            aria-label="select merge strategy"
-                            aria-haspopup="menu"
                             onClick={handleToggle}
                         >
                             {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
-                        </BlackButton>
+                        </Button>
                     </ButtonGroup>
                     <Popper
-                        sx={{
-                            zIndex: 1,
-                        }}
+                        sx={{ zIndex: 1 }}
                         open={open}
                         anchorEl={anchorRef.current}
                         role={undefined}
@@ -115,19 +133,18 @@ const TeacherClassDetails = () => {
                             <Grow
                                 {...TransitionProps}
                                 style={{
-                                    transformOrigin:
-                                        placement === 'bottom' ? 'center top' : 'center bottom',
+                                    transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
                                 }}
                             >
-                                <Paper>
+                                <Paper sx={{ borderRadius: '12px', mt: 1, boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' }}>
                                     <ClickAwayListener onClickAway={handleClose}>
                                         <MenuList id="split-button-menu" autoFocusItem>
                                             {options.map((option, index) => (
                                                 <MenuItem
                                                     key={option}
-                                                    disabled={index === 2}
                                                     selected={index === selectedIndex}
                                                     onClick={(event) => handleMenuItemClick(event, index)}
+                                                    sx={{ fontWeight: 600, fontSize: '0.9rem' }}
                                                 >
                                                     {option}
                                                 </MenuItem>
@@ -138,41 +155,110 @@ const TeacherClassDetails = () => {
                             </Grow>
                         )}
                     </Popper>
-                </React.Fragment>
-            </>
+                </Box>
+            </Stack>
         );
     };
 
     return (
-        <>
+        <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
             {loading ? (
-                <div>Loading...</div>
+                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 10 }}>
+                    <CircularProgress sx={{ color: '#6366F1' }} />
+                </Box>
             ) : (
-                <>
-                    <Typography variant="h4" align="center" gutterBottom>
-                        Class Details
-                    </Typography>
-                    {getresponse ? (
-                        <>
-                            <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
-                                No Students Found
-                            </Box>
-                        </>
-                    ) : (
-                        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-                            <Typography variant="h5" gutterBottom>
-                                Students List:
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 4 }}>
+                        <Box>
+                            <Stack direction="row" alignItems="center" spacing={1.5} sx={{ mb: 1 }}>
+                                <SchoolIcon sx={{ color: '#6366F1', fontSize: 32 }} />
+                                <Typography 
+                                    variant="h4" 
+                                    sx={{ 
+                                        fontWeight: 800, 
+                                        color: '#1E1B4B', 
+                                        fontFamily: '"Plus Jakarta Sans", sans-serif'
+                                    }}
+                                >
+                                    Class Management
+                                </Typography>
+                            </Stack>
+                            <Typography variant="body1" sx={{ color: '#64748B' }}>
+                                Managing students of <Box component="span" sx={{ fontWeight: 700, color: '#6366F1' }}>{currentUser.teachSclass?.sclassName}</Box>
                             </Typography>
+                        </Box>
 
-                            {Array.isArray(sclassStudents) && sclassStudents.length > 0 &&
-                                <TableTemplate buttonHaver={StudentsButtonHaver} columns={studentColumns} rows={studentRows} />
-                            }
+                        <Paper elevation={0} sx={{ 
+                            p: '10px 24px', 
+                            borderRadius: '16px', 
+                            bgcolor: '#EEF2FF', 
+                            border: '1px solid #E0E7FF',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 2
+                        }}>
+                            <Box sx={{ textAlign: 'right' }}>
+                                <Typography variant="caption" sx={{ color: '#6366F1', fontWeight: 700, textTransform: 'uppercase' }}>
+                                    Total Students
+                                </Typography>
+                                <Typography variant="h6" sx={{ color: '#1E1B4B', fontWeight: 800, lineHeight: 1 }}>
+                                    {sclassStudents ? sclassStudents.length : 0}
+                                </Typography>
+                            </Box>
+                            <GroupIcon sx={{ color: '#6366F1', fontSize: 30 }} />
                         </Paper>
+                    </Stack>
+
+                    <Divider sx={{ mb: 4, borderStyle: 'dashed' }} />
+
+                    {getresponse ? (
+                        <StyledPaper elevation={0} sx={{ textAlign: 'center', py: 10 }}>
+                            <Box sx={{ 
+                                width: 80, height: 80, mx: 'auto', mb: 2, 
+                                bgcolor: '#F1F5F9', color: '#94A3B8',
+                                borderRadius: '24px', display: 'flex',
+                                alignItems: 'center', justifyContent: 'center'
+                            }}>
+                                <GroupIcon sx={{ fontSize: 40 }} />
+                            </Box>
+                            <Typography variant="h5" sx={{ color: '#1E1B4B', fontWeight: 700, mb: 1 }}>
+                                No Students Found
+                            </Typography>
+                            <Typography variant="body1" sx={{ color: '#64748B' }}>
+                                There are currently no students enrolled in this class.
+                            </Typography>
+                        </StyledPaper>
+                    ) : (
+                        <StyledPaper elevation={0}>
+                            <Typography variant="h6" sx={{ fontWeight: 700, color: '#1E1B4B', mb: 3, display: 'flex', alignItems: 'center', gap: 1 }}>
+                                <AssignmentTurnedInIcon color="primary" /> Student Directory
+                            </Typography>
+                            {Array.isArray(sclassStudents) && sclassStudents.length > 0 && (
+                                <TableTemplate 
+                                    buttonHaver={StudentsButtonHaver} 
+                                    columns={studentColumns} 
+                                    rows={studentRows} 
+                                />
+                            )}
+                        </StyledPaper>
                     )}
-                </>
+                </motion.div>
             )}
-        </>
+        </Container>
     );
 };
+
+const StyledPaper = styled(Paper)(({ theme }) => ({
+    padding: '32px',
+    borderRadius: '24px !important',
+    backgroundColor: '#FFFFFF !important',
+    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05) !important',
+    border: '1px solid #F1F5F9 !important',
+    overflow: 'hidden'
+}));
 
 export default TeacherClassDetails;

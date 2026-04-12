@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Grid, Paper, Typography } from '@mui/material'
+import { Container, Grid, Paper, Typography, Box } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux';
 import { calculateOverallAttendancePercentage } from '../../components/attendanceCalculator';
 import CustomPieChart from '../../components/CustomPieChart';
 import { getUserDetails } from '../../redux/userRelated/userHandle';
-import styled from 'styled-components';
+import { styled } from '@mui/material/styles';
 import SeeNotice from '../../components/SeeNotice';
 import CountUp from 'react-countup';
 import Subject from "../../assets/subjects.svg";
@@ -46,7 +46,7 @@ const StudentHomePage = () => {
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                 <Grid container spacing={3}>
                     <Grid item xs={12} md={3} lg={3}>
-                        <StyledPaper>
+                        <StyledPaper elevation={3}>
                             <img src={Subject} alt="Subjects" />
                             <Title>
                                 Total Subjects
@@ -55,7 +55,7 @@ const StudentHomePage = () => {
                         </StyledPaper>
                     </Grid>
                     <Grid item xs={12} md={3} lg={3}>
-                        <StyledPaper>
+                        <StyledPaper elevation={3}>
                             <img src={Assignment} alt="Assignments" />
                             <Title>
                                 Total Assignments
@@ -102,34 +102,34 @@ const StudentHomePage = () => {
     )
 }
 
-const ChartContainer = styled.div`
-  padding: 2px;
-  display: flex;
-  flex-direction: column;
-  height: 240px;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-`;
+const ChartContainer = styled(Box)(({ theme }) => ({
+  padding: '2px',
+  display: 'flex',
+  flexDirection: 'column',
+  height: '240px',
+  justifyContent: 'center',
+  alignItems: 'center',
+  textAlign: 'center',
+}));
 
-const StyledPaper = styled(Paper)`
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  height: 200px;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-`;
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  padding: '16px',
+  display: 'flex',
+  flexDirection: 'column',
+  height: '200px',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  textAlign: 'center',
+}));
 
-const Title = styled.p`
-  font-size: 1.25rem;
-`;
+const Title = styled('p')(({ theme }) => ({
+  fontSize: '1.25rem',
+}));
 
-const Data = styled(CountUp)`
-  font-size: calc(1.3rem + .6vw);
-  color: green;
-`;
+const Data = styled(CountUp)(({ theme }) => ({
+  fontSize: 'calc(1.3rem + .6vw)',
+  color: 'green',
+}));
 
 
 

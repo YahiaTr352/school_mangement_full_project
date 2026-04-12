@@ -5,14 +5,20 @@ const Teacher = require('../models/teacherSchema.js');
 
 const sclassCreate = async (req, res) => {
     try {
+        const { sclassName, adminID } = req.body;
+
+        if (!sclassName || !adminID) {
+            return res.send({ message: 'Class name and admin ID are required' });
+        }
+
         const sclass = new Sclass({
-            sclassName: req.body.sclassName,
-            school: req.body.adminID
+            sclassName: sclassName,
+            school: adminID
         });
 
         const existingSclassByName = await Sclass.findOne({
-            sclassName: req.body.sclassName,
-            school: req.body.adminID
+            sclassName: sclassName,
+            school: adminID
         });
 
         if (existingSclassByName) {
@@ -23,7 +29,8 @@ const sclassCreate = async (req, res) => {
             res.send(result);
         }
     } catch (err) {
-        res.status(500).json(err);
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error", error: err.message });
     }
 };
 

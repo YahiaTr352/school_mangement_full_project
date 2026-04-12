@@ -1,11 +1,11 @@
 import {
     TableCell,
     TableRow,
-    styled,
     tableCellClasses,
     Drawer as MuiDrawer,
     AppBar as MuiAppBar,
 } from "@mui/material";
+import { styled } from '@mui/material/styles';
 
 const drawerWidth = 240
 

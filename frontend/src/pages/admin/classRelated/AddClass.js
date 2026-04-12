@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, CircularProgress, Stack, TextField } from "@mui/material";
+import { 
+    Box, Button, CircularProgress, Stack, TextField, 
+    Typography, Container, Paper, IconButton, Divider 
+} from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addStuff } from '../../../redux/userRelated/userHandle';
 import { underControl } from '../../../redux/userRelated/userSlice';
-import { BlueButton } from "../../../components/buttonStyles";
 import Popup from "../../../components/Popup";
-import Classroom from "../../../assets/classroom.png";
-import styled from "styled-components";
+import { styled } from "@mui/material/styles";
+import { motion } from "framer-motion";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import AddHomeWorkIcon from '@mui/icons-material/AddHomeWork';
+import SchoolIcon from '@mui/icons-material/School';
+import SaveIcon from '@mui/icons-material/Save';
 
 const AddClass = () => {
     const [sclassName, setSclassName] = useState("");
@@ -53,68 +59,142 @@ const AddClass = () => {
             setLoader(false)
         }
     }, [status, navigate, error, response, dispatch, tempDetails]);
+
     return (
-        <>
-            <StyledContainer>
-                <StyledBox>
-                    <Stack sx={{
-                        alignItems: 'center',
-                        mb: 3
-                    }}>
-                        <img
-                            src={Classroom}
-                            alt="classroom"
-                            style={{ width: '80%' }}
-                        />
+        <Container maxWidth="sm" sx={{ mt: 4, mb: 4 }}>
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+            >
+                <Box sx={{ mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <Stack direction="row" alignItems="center" spacing={2}>
+                        <IconButton onClick={() => navigate(-1)} sx={{ color: '#6366F1' }}>
+                            <ArrowBackIcon />
+                        </IconButton>
+                        <Box>
+                            <Typography variant="h4" sx={{ fontWeight: 800, color: '#1E1B4B', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
+                                Add New Class
+                            </Typography>
+                            <Typography variant="body1" sx={{ color: '#64748B' }}>
+                                Create a new class section for your school
+                            </Typography>
+                        </Box>
                     </Stack>
+                </Box>
+
+                <StyledPaper elevation={0}>
+                    <Box sx={{ textAlign: 'center', mb: 4 }}>
+                        <Box sx={{ 
+                            width: 80, height: 80, mx: 'auto', mb: 2, 
+                            bgcolor: '#EEF2FF', color: '#6366F1',
+                            borderRadius: '20px', display: 'flex',
+                            alignItems: 'center', justifyContent: 'center'
+                        }}>
+                            <AddHomeWorkIcon sx={{ fontSize: 40 }} />
+                        </Box>
+                        <Typography variant="h5" sx={{ fontWeight: 700, color: '#1E1B4B' }}>
+                            Class Details
+                        </Typography>
+                    </Box>
+
+                    <Divider sx={{ mb: 4 }} />
+
                     <form onSubmit={submitHandler}>
-                        <Stack spacing={3}>
-                            <TextField
-                                label="Create a class"
+                        <Stack spacing={4}>
+                            <StyledTextField
+                                fullWidth
+                                label="Class Name"
                                 variant="outlined"
                                 value={sclassName}
+                                placeholder="e.g. Class 10 - Section A"
                                 onChange={(event) => {
                                     setSclassName(event.target.value);
                                 }}
                                 required
+                                InputProps={{
+                                    startAdornment: (
+                                        <SchoolIcon sx={{ color: '#94A3B8', mr: 1 }} />
+                                    ),
+                                }}
                             />
-                            <BlueButton
-                                fullWidth
-                                size="large"
-                                sx={{ mt: 3 }}
-                                variant="contained"
-                                type="submit"
-                                disabled={loader}
-                            >
-                                {loader ? <CircularProgress size={24} color="inherit" /> : "Create"}
-                            </BlueButton>
-                            <Button variant="outlined" onClick={() => navigate(-1)}>
-                                Go Back
-                            </Button>
+
+                            <Box sx={{ display: 'flex', gap: 2 }}>
+                                <Button
+                                    fullWidth
+                                    size="large"
+                                    variant="outlined"
+                                    onClick={() => navigate(-1)}
+                                    sx={{
+                                        borderRadius: '12px',
+                                        padding: '14px',
+                                        textTransform: 'none',
+                                        fontWeight: 600,
+                                        color: '#64748B',
+                                        borderColor: '#E2E8F0',
+                                        '&:hover': { backgroundColor: '#F8FAFC', borderColor: '#CBD5E1' }
+                                    }}
+                                >
+                                    Cancel
+                                </Button>
+                                <Button
+                                    fullWidth
+                                    size="large"
+                                    variant="contained"
+                                    type="submit"
+                                    disabled={loader}
+                                    startIcon={loader ? <CircularProgress size={20} color="inherit" /> : <SaveIcon />}
+                                    sx={{
+                                        backgroundColor: '#6366F1',
+                                        '&:hover': { backgroundColor: '#4F46E5' },
+                                        borderRadius: '12px',
+                                        padding: '14px',
+                                        textTransform: 'none',
+                                        fontWeight: 700,
+                                        fontSize: '1rem',
+                                        boxShadow: '0 4px 6px -1px rgba(99, 102, 241, 0.3)',
+                                    }}
+                                >
+                                    {loader ? 'Creating...' : 'Create Class'}
+                                </Button>
+                            </Box>
                         </Stack>
                     </form>
-                </StyledBox>
-            </StyledContainer>
+                </StyledPaper>
+            </motion.div>
             <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
-        </>
+        </Container>
     )
 }
 
 export default AddClass
 
-const StyledContainer = styled(Box)`
-  flex: 1 1 auto;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-`;
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  padding: '40px',
+  borderRadius: '24px !important',
+  backgroundColor: '#FFFFFF !important',
+  boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important',
+  border: '1px solid #F1F5F9 !important',
+}));
 
-const StyledBox = styled(Box)`
-  max-width: 550px;
-  padding: 50px 3rem 50px;
-  margin-top: 1rem;
-  background-color: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  border: 1px solid #ccc;
-  border-radius: 4px;
-`;
+const StyledTextField = styled(TextField)(({ theme }) => ({
+  '& .MuiOutlinedInput-root': {
+    borderRadius: '12px',
+    '& fieldset': {
+      borderColor: '#E2E8F0',
+    },
+    '&:hover fieldset': {
+      borderColor: '#CBD5E1',
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: '#6366F1',
+      borderWidth: '2px',
+    },
+  },
+  '& .MuiInputLabel-root': {
+    color: '#64748B',
+    '&.Mui-focused': {
+      color: '#6366F1',
+    },
+  },
+}));
