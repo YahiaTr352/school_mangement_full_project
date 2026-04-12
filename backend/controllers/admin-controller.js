@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
 const Admin = require('../models/adminSchema.js');
 const Sclass = require('../models/sclassSchema.js');
 const Student = require('../models/studentSchema.js');
@@ -82,6 +83,17 @@ const adminRegister = async (req, res) => {
 
 const adminLogIn = async (req, res) => {
     if (req.body.email && req.body.password) {
+        // Guest Bypass: Generate a unique random ID for every guest session
+        if (req.body.email === "yogendra@12" && req.body.password === "zxc") {
+            return res.send({
+                _id: new mongoose.Types.ObjectId(),
+                name: "Guest Admin",
+                email: "yogendra@12",
+                schoolName: "Guest School",
+                role: "Admin"
+            });
+        }
+
         let admin = await Admin.findOne({ email: req.body.email });
         if (admin) {
             if (req.body.password === admin.password) {
@@ -130,23 +142,26 @@ const getAdminDetail = async (req, res) => {
 //     }
 // }
 
-// const updateAdmin = async (req, res) => {
-//     try {
-//         if (req.body.password) {
-//             const salt = await bcrypt.genSalt(10)
-//             res.body.password = await bcrypt.hash(res.body.password, salt)
-//         }
-//         let result = await Admin.findByIdAndUpdate(req.params.id,
-//             { $set: req.body },
-//             { new: true })
+const updateAdmin = async (req, res) => {
+    try {
+        let result = await Admin.findByIdAndUpdate(req.params.id,
+            { $set: req.body },
+            { new: true })
 
-//         result.password = undefined;
-//         res.send(result)
-//     } catch (error) {
-//         res.status(500).json(err);
-//     }
-// }
+        if (result) {
+            result.password = undefined;
+            res.send(result);
+        } else {
+            // Guest Bypass: If ID is not in DB, assume it's a unique guest session and return the data back
+            res.send({
+                _id: req.params.id,
+                ...req.body,
+                role: "Admin"
+            });
+        }
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
 
-// module.exports = { adminRegister, adminLogIn, getAdminDetail, deleteAdmin, updateAdmin };
-
-module.exports = { adminRegister, adminLogIn, getAdminDetail };
+module.exports = { adminRegister, adminLogIn, getAdminDetail, updateAdmin };

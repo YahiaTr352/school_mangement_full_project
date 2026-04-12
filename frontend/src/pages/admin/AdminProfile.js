@@ -43,7 +43,7 @@ const AdminProfile = () => {
     };
 
     useEffect(() => {
-        if (status === 'updated') {
+        if (status === 'success' || status === 'added') {
             setLoader(false);
             setShowTab(false);
             setMessage("Profile updated successfully");
@@ -53,6 +53,7 @@ const AdminProfile = () => {
             setLoader(false);
             setMessage(response || "Network Error");
             setShowPopup(true);
+            dispatch(underControl());
         }
     }, [status, response, dispatch]);
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import { getAllTeachers } from '../../../redux/teacherRelated/teacherHandle';
+import { deleteUser } from '../../../redux/userRelated/userHandle';
 import {
     Paper, Table, TableBody, TableContainer,
     TableHead, TablePagination, Button, Box, IconButton,
@@ -38,8 +39,10 @@ const ShowTeachers = () => {
     const [message, setMessage] = useState("");
 
     const deleteHandler = (deleteID, address) => {
-        setMessage("Sorry the delete function has been disabled for now.")
-        setShowPopup(true)
+        dispatch(deleteUser(deleteID, address))
+            .then(() => {
+                dispatch(getAllTeachers(currentUser._id));
+            })
     };
 
     const columns = [
