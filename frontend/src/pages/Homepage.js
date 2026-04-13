@@ -8,7 +8,7 @@ import Students from "../assets/students.svg";
 const Homepage = () => {
     return (
         <StyledContainer maxWidth={false}>
-            <Grid container spacing={0} sx={{ height: '100vh' }}>
+            <Grid container spacing={0} sx={{ minHeight: '100vh' }}>
                 <Grid item xs={12} md={7} sx={{ 
                     display: 'flex', 
                     alignItems: 'center', 
@@ -39,7 +39,8 @@ const Homepage = () => {
                     alignItems: 'center', 
                     justifyContent: 'center',
                     backgroundColor: '#FFFFFF',
-                    p: { xs: 4, md: 8 }
+                    p: { xs: 4, md: 8 },
+                    pb: { xs: 12, md: 8 }
                 }}>
                     <Box sx={{ width: '100%', maxWidth: '440px' }}>
                         <motion.div
@@ -179,7 +180,6 @@ export default Homepage;
 const StyledContainer = styled(Container)(({ theme }) => ({
   padding: '0 !important',
   margin: '0 !important',
-  overflow: 'hidden',
 }));
 
 const StyledLink = styled(Link)(({ theme }) => ({

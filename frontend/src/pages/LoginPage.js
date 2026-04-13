@@ -115,7 +115,7 @@ const LoginPage = ({ role }) => {
             <CssBaseline />
             {/* Left Side: Login Form */}
             <Grid item xs={12} md={5} component={Paper} elevation={0} square sx={{ display: 'flex', alignItems: 'center', backgroundColor: '#FFFFFF' }}>
-                <Box sx={{ my: 8, mx: { xs: 4, md: 8 }, width: '100%', maxWidth: '400px' }}>
+                <Box sx={{ mt: 8, mb: { xs: 12, md: 8 }, mx: { xs: 4, md: 8 }, width: '100%', maxWidth: '400px' }}>
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
