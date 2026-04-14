@@ -63,32 +63,33 @@ const TeacherHomePage = () => {
     ];
 
     return (
-        <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
+        <Container maxWidth="xl" sx={{ mt: { xs: 2, sm: 4 }, mb: { xs: 2, sm: 4 } }}>
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <Box sx={{ mb: 5 }}>
+                <Box sx={{ mb: { xs: 3, sm: 5 } }}>
                     <Typography 
                         variant="h4" 
                         sx={{ 
                             fontWeight: 800, 
                             color: '#1E1B4B', 
                             fontFamily: '"Plus Jakarta Sans", sans-serif',
-                            mb: 1
+                            mb: 1,
+                            fontSize: { xs: '1.5rem', sm: '2.125rem' }
                         }}
                     >
                         Welcome Back, {currentUser.name}
                     </Typography>
-                    <Typography variant="body1" sx={{ color: '#64748B' }}>
+                    <Typography variant="body1" sx={{ color: '#64748B', fontSize: { xs: '0.875rem', sm: '1rem' } }}>
                         Teaching <Box component="span" sx={{ fontWeight: 700, color: '#6366F1' }}>{currentUser.teachSubject?.subName}</Box> to 
                         <Box component="span" sx={{ fontWeight: 700, color: '#10B981', ml: 1 }}>{currentUser.teachSclass?.sclassName}</Box>
                     </Typography>
                 </Box>
             </motion.div>
 
-            <Grid container spacing={3}>
+            <Grid container spacing={{ xs: 2, sm: 3 }}>
                 {stats.map((stat, index) => (
                     <Grid item xs={12} sm={6} md={3} key={index}>
                         <motion.div
@@ -97,10 +98,16 @@ const TeacherHomePage = () => {
                             transition={{ duration: 0.5, delay: stat.delay }}
                         >
                             <StyledStatCard elevation={0}>
-                                <IconContainer sx={{ backgroundColor: `${stat.color}15`, color: stat.color }}>
-                                    {stat.icon}
+                                <IconContainer sx={{ 
+                                    backgroundColor: `${stat.color}15`, 
+                                    color: stat.color,
+                                    width: { xs: '48px', sm: '60px' },
+                                    height: { xs: '48px', sm: '60px' },
+                                    borderRadius: { xs: '12px', sm: '16px' }
+                                }}>
+                                    {React.cloneElement(stat.icon, { sx: { fontSize: { xs: 30, sm: 40 } } })}
                                 </IconContainer>
-                                <Box sx={{ textAlign: 'left', mt: 2 }}>
+                                <Box sx={{ textAlign: 'left', mt: { xs: 1.5, sm: 2 } }}>
                                     <Typography 
                                         variant="body2" 
                                         sx={{ 
@@ -108,7 +115,8 @@ const TeacherHomePage = () => {
                                             fontWeight: 600, 
                                             textTransform: 'uppercase', 
                                             letterSpacing: '0.05em',
-                                            mb: 0.5
+                                            mb: 0.5,
+                                            fontSize: { xs: '0.7rem', sm: '0.75rem' }
                                         }}
                                     >
                                         {stat.title}
@@ -118,7 +126,8 @@ const TeacherHomePage = () => {
                                         sx={{ 
                                             fontWeight: 800, 
                                             color: '#1E1B4B',
-                                            fontFamily: '"Plus Jakarta Sans", sans-serif'
+                                            fontFamily: '"Plus Jakarta Sans", sans-serif',
+                                            fontSize: { xs: '1.5rem', sm: '2.125rem' }
                                         }}
                                     >
                                         <CountUp 
@@ -129,7 +138,7 @@ const TeacherHomePage = () => {
                                         />
                                     </Typography>
                                 </Box>
-                                <Typography sx={{ fontSize: '0.75rem', fontWeight: 600, mt: 2, color: stat.color, opacity: 0.8 }}>
+                                <Typography sx={{ fontSize: { xs: '0.65rem', sm: '0.75rem' }, fontWeight: 600, mt: { xs: 1.5, sm: 2 }, color: stat.color, opacity: 0.8 }}>
                                     Active for current semester
                                 </Typography>
                             </StyledStatCard>
@@ -145,13 +154,14 @@ const TeacherHomePage = () => {
                     >
                         <StyledPaper elevation={0}>
                             <Stack direction="row" alignItems="center" spacing={1.5} sx={{ mb: 3 }}>
-                                <NotificationsActive sx={{ color: '#6366F1' }} />
+                                <NotificationsActive sx={{ color: '#6366F1', fontSize: { xs: '1.25rem', sm: '1.5rem' } }} />
                                 <Typography 
                                     variant="h6" 
                                     sx={{ 
                                         fontWeight: 700, 
                                         color: '#1E1B4B',
-                                        fontFamily: '"Plus Jakarta Sans", sans-serif'
+                                        fontFamily: '"Plus Jakarta Sans", sans-serif',
+                                        fontSize: { xs: '1rem', sm: '1.25rem' }
                                     }}
                                 >
                                     Recent Notices & Announcements
@@ -177,6 +187,9 @@ const StyledStatCard = styled(Paper)(({ theme }) => ({
     position: 'relative',
     overflow: 'hidden',
     transition: 'all 0.3s ease-in-out !important',
+    [theme.breakpoints.down('sm')]: {
+        padding: '16px',
+    },
   
     '&:hover': {
       transform: 'translateY(-5px)',
@@ -200,6 +213,9 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
     backgroundColor: '#FFFFFF !important',
     boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05) !important',
     border: '1px solid #F1F5F9 !important',
+    [theme.breakpoints.down('sm')]: {
+        padding: '20px',
+    },
 }));
 
 export default TeacherHomePage;

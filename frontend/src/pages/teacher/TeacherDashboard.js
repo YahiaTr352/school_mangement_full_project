@@ -67,7 +67,12 @@ const TeacherDashboard = () => {
                         <AccountMenu />
                     </Toolbar>
                 </AppBar>
-                <Drawer variant="permanent" open={open} sx={open ? styles.drawerStyled : styles.hideDrawer}>
+                <Drawer 
+                    variant={open ? "permanent" : "temporary"} 
+                    open={open} 
+                    onClose={toggleDrawer}
+                    sx={open ? styles.drawerStyled : styles.hideDrawer}
+                >
                     <Toolbar sx={styles.toolBarStyled}>
                         <IconButton onClick={toggleDrawer}>
                             <ChevronLeftIcon />

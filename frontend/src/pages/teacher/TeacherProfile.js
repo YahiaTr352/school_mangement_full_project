@@ -21,32 +21,37 @@ const TeacherProfile = () => {
     const teachSchool = currentUser.school;
 
     return (
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 8 }}>
+        <Container maxWidth="lg" sx={{ mt: { xs: 2, sm: 4 }, mb: { xs: 4, sm: 8 } }}>
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <Box sx={{ mb: 4 }}>
-                    <Typography variant="h4" sx={{ fontWeight: 800, color: '#1E1B4B', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
+                <Box sx={{ mb: { xs: 3, sm: 4 }, textAlign: { xs: 'center', sm: 'left' } }}>
+                    <Typography variant="h4" sx={{ 
+                        fontWeight: 800, 
+                        color: '#1E1B4B', 
+                        fontFamily: '"Plus Jakarta Sans", sans-serif',
+                        fontSize: { xs: '1.75rem', sm: '2.125rem' }
+                    }}>
                         Teacher Profile
                     </Typography>
-                    <Typography variant="body1" sx={{ color: '#64748B' }}>
+                    <Typography variant="body1" sx={{ color: '#64748B', fontSize: { xs: '0.875rem', sm: '1rem' } }}>
                         Personal details and teaching assignments
                     </Typography>
                 </Box>
 
-                <Grid container spacing={4}>
+                <Grid container spacing={{ xs: 3, sm: 4 }}>
                     <Grid item xs={12} md={4}>
-                        <StyledPaper elevation={0} sx={{ textAlign: 'center', p: 4 }}>
+                        <StyledPaper elevation={0} sx={{ textAlign: 'center', p: { xs: 3, sm: 4 } }}>
                             <Avatar sx={{ 
-                                width: 120, height: 120, mx: 'auto', mb: 2, 
-                                bgcolor: '#4338CA', fontSize: '3rem',
+                                width: { xs: 100, sm: 120 }, height: { xs: 100, sm: 120 }, mx: 'auto', mb: 2, 
+                                bgcolor: '#4338CA', fontSize: { xs: '2.5rem', sm: '3rem' },
                                 boxShadow: '0 10px 15px -3px rgba(67, 56, 202, 0.3)'
                             }}>
                                 {currentUser.name.charAt(0).toUpperCase()}
                             </Avatar>
-                            <Typography variant="h5" sx={{ fontWeight: 700, color: '#1E1B4B', mb: 0.5 }}>
+                            <Typography variant="h5" sx={{ fontWeight: 700, color: '#1E1B4B', mb: 0.5, fontSize: { xs: '1.25rem', sm: '1.5rem' } }}>
                                 {currentUser.name}
                             </Typography>
                             <Typography variant="body2" sx={{ color: '#4338CA', fontWeight: 600, mb: 3 }}>
@@ -64,14 +69,22 @@ const TeacherProfile = () => {
                     </Grid>
 
                     <Grid item xs={12} md={8}>
-                        <StyledPaper elevation={0} sx={{ p: 4, mb: 4 }}>
-                            <Typography variant="h6" sx={{ fontWeight: 700, color: '#1E1B4B', mb: 3, display: 'flex', alignItems: 'center', gap: 1 }}>
-                                <AutoStoriesIcon color="primary" /> Teaching Assignments
+                        <StyledPaper elevation={0} sx={{ p: { xs: 3, sm: 4 }, mb: { xs: 3, sm: 4 } }}>
+                            <Typography variant="h6" sx={{ 
+                                fontWeight: 700, 
+                                color: '#1E1B4B', 
+                                mb: 3, 
+                                display: 'flex', 
+                                alignItems: 'center', 
+                                gap: 1,
+                                fontSize: { xs: '1.1rem', sm: '1.25rem' }
+                            }}>
+                                <AutoStoriesIcon color="primary" sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }} /> Teaching Assignments
                             </Typography>
-                            <Grid container spacing={3}>
+                            <Grid container spacing={{ xs: 2, sm: 3 }}>
                                 <Grid item xs={12} sm={6}>
                                     <AssignmentBox 
-                                        icon={<ClassIcon sx={{ fontSize: 30, color: '#6366F1' }} />}
+                                        icon={<ClassIcon sx={{ fontSize: { xs: 24, sm: 30 }, color: '#6366F1' }} />}
                                         label="Assigned Class"
                                         value={teachSclass?.sclassName}
                                         color="#EEF2FF"
@@ -79,7 +92,7 @@ const TeacherProfile = () => {
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
                                     <AssignmentBox 
-                                        icon={<AutoStoriesIcon sx={{ fontSize: 30, color: '#10B981' }} />}
+                                        icon={<AutoStoriesIcon sx={{ fontSize: { xs: 24, sm: 30 }, color: '#10B981' }} />}
                                         label="Primary Subject"
                                         value={teachSubject?.subName}
                                         color="#ECFDF5"
@@ -88,15 +101,15 @@ const TeacherProfile = () => {
                             </Grid>
                         </StyledPaper>
 
-                        <StyledPaper elevation={0} sx={{ p: 4 }}>
-                            <Typography variant="h6" sx={{ fontWeight: 700, color: '#1E1B4B', mb: 3 }}>
+                        <StyledPaper elevation={0} sx={{ p: { xs: 3, sm: 4 } }}>
+                            <Typography variant="h6" sx={{ fontWeight: 700, color: '#1E1B4B', mb: 3, fontSize: { xs: '1.1rem', sm: '1.25rem' } }}>
                                 Account Overview
                             </Typography>
-                            <Grid container spacing={3}>
-                                <Grid item xs={12} sm={4}>
+                            <Grid container spacing={{ xs: 2, sm: 3 }}>
+                                <Grid item xs={6} sm={4}>
                                     <StatBox label="Teacher ID" value={`#${currentUser._id.substring(0, 8)}`} />
                                 </Grid>
-                                <Grid item xs={12} sm={4}>
+                                <Grid item xs={6} sm={4}>
                                     <StatBox label="Status" value="Active" color="#10B981" />
                                 </Grid>
                                 <Grid item xs={12} sm={4}>
@@ -113,12 +126,12 @@ const TeacherProfile = () => {
 
 const InfoItem = ({ icon, label, value }) => (
     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-        {icon}
+        {React.cloneElement(icon, { sx: { color: '#94A3B8', fontSize: { xs: '1.1rem', sm: '1.5rem' } } })}
         <Box>
-            <Typography variant="caption" sx={{ color: '#94A3B8', fontWeight: 600, display: 'block', mb: -0.5 }}>
+            <Typography variant="caption" sx={{ color: '#94A3B8', fontWeight: 600, display: 'block', mb: -0.5, fontSize: { xs: '0.65rem', sm: '0.75rem' } }}>
                 {label}
             </Typography>
-            <Typography variant="body2" sx={{ fontWeight: 600, color: '#1E1B4B' }}>
+            <Typography variant="body2" sx={{ fontWeight: 600, color: '#1E1B4B', fontSize: { xs: '0.8rem', sm: '0.875rem' } }}>
                 {value}
             </Typography>
         </Box>
@@ -127,7 +140,7 @@ const InfoItem = ({ icon, label, value }) => (
 
 const AssignmentBox = ({ icon, label, value, color }) => (
     <Box sx={{ 
-        p: 3, 
+        p: { xs: 2, sm: 3 }, 
         borderRadius: '20px', 
         bgcolor: color,
         display: 'flex',
@@ -136,7 +149,7 @@ const AssignmentBox = ({ icon, label, value, color }) => (
     }}>
         <Box sx={{ 
             bgcolor: 'white', 
-            p: 1.5, 
+            p: { xs: 1, sm: 1.5 }, 
             borderRadius: '12px', 
             display: 'flex',
             boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'
@@ -144,10 +157,10 @@ const AssignmentBox = ({ icon, label, value, color }) => (
             {icon}
         </Box>
         <Box>
-            <Typography variant="caption" sx={{ color: '#64748B', fontWeight: 600, textTransform: 'uppercase' }}>
+            <Typography variant="caption" sx={{ color: '#64748B', fontWeight: 600, textTransform: 'uppercase', fontSize: { xs: '0.6rem', sm: '0.75rem' } }}>
                 {label}
             </Typography>
-            <Typography variant="h6" sx={{ fontWeight: 800, color: '#1E1B4B', lineHeight: 1.2 }}>
+            <Typography variant="h6" sx={{ fontWeight: 800, color: '#1E1B4B', lineHeight: 1.2, fontSize: { xs: '1rem', sm: '1.25rem' } }}>
                 {value}
             </Typography>
         </Box>
@@ -155,11 +168,11 @@ const AssignmentBox = ({ icon, label, value, color }) => (
 );
 
 const StatBox = ({ label, value, color = '#1E1B4B' }) => (
-    <Box sx={{ p: 2, borderRadius: '16px', bgcolor: '#F8FAFC', border: '1px solid #F1F5F9' }}>
-        <Typography variant="caption" sx={{ color: '#64748B', fontWeight: 600, display: 'block', mb: 0.5 }}>
+    <Box sx={{ p: 2, borderRadius: '16px', bgcolor: '#F8FAFC', border: '1px solid #F1F5F9', height: '100%' }}>
+        <Typography variant="caption" sx={{ color: '#64748B', fontWeight: 600, display: 'block', mb: 0.5, fontSize: { xs: '0.65rem', sm: '0.75rem' } }}>
             {label}
         </Typography>
-        <Typography variant="body1" sx={{ fontWeight: 700, color: color }}>
+        <Typography variant="body1" sx={{ fontWeight: 700, color: color, fontSize: { xs: '0.85rem', sm: '1rem' } }}>
             {value}
         </Typography>
     </Box>

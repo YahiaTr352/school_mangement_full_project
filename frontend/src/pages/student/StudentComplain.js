@@ -69,12 +69,22 @@ const StudentComplain = () => {
                     <StyledPaper elevation={0}>
                         <Box sx={{ mb: 4, textAlign: 'center' }}>
                             <IconBox>
-                                <ReviewIcon sx={{ fontSize: 32, color: '#6366F1' }} />
+                                <ReviewIcon sx={{ fontSize: { xs: 24, sm: 32 }, color: '#6366F1' }} />
                             </IconBox>
-                            <Typography variant="h4" sx={{ fontWeight: 800, color: '#1E1B4B', mt: 2, fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
+                            <Typography variant="h4" sx={{ 
+                                fontWeight: 800, 
+                                color: '#1E1B4B', 
+                                mt: 2, 
+                                fontFamily: '"Plus Jakarta Sans", sans-serif',
+                                fontSize: { xs: '1.5rem', sm: '2.125rem' }
+                            }}>
                                 Submit a Complain
                             </Typography>
-                            <Typography variant="body1" sx={{ color: '#64748B', mt: 1 }}>
+                            <Typography variant="body1" sx={{ 
+                                color: '#64748B', 
+                                mt: 1,
+                                fontSize: { xs: '0.875rem', sm: '1rem' }
+                            }}>
                                 Help us improve by sharing your concerns or suggestions.
                             </Typography>
                         </Box>
@@ -144,6 +154,9 @@ const StyledRoot = styled(Box)(({ theme }) => ({
     alignItems: 'center',
     backgroundColor: '#F8FAFC',
     padding: theme.spacing(4, 0),
+    [theme.breakpoints.down('sm')]: {
+        padding: theme.spacing(2, 0),
+    },
 }));
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
@@ -152,6 +165,10 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
     backgroundColor: '#FFFFFF',
     border: '1px solid #E2E8F0',
     boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.05)',
+    [theme.breakpoints.down('sm')]: {
+        padding: theme.spacing(3),
+        borderRadius: '16px',
+    },
 }));
 
 const IconBox = styled(Box)(({ theme }) => ({
@@ -163,6 +180,11 @@ const IconBox = styled(Box)(({ theme }) => ({
     alignItems: 'center',
     justifyContent: 'center',
     margin: '0 auto',
+    [theme.breakpoints.down('sm')]: {
+        width: '48px',
+        height: '48px',
+        borderRadius: '12px',
+    },
 }));
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
@@ -206,5 +228,9 @@ const SubmitButton = styled(Button)(({ theme }) => ({
     '&.Mui-disabled': {
         backgroundColor: '#E2E8F0',
         color: '#94A3B8'
-    }
+    },
+    [theme.breakpoints.down('sm')]: {
+        padding: '10px',
+        fontSize: '0.9rem',
+    },
 }));

@@ -44,10 +44,21 @@ const StudentProfile = () => {
                             <StyledAvatar>
                                 {String(currentUser.name).charAt(0)}
                             </StyledAvatar>
-                            <Typography variant="h4" sx={{ fontWeight: 800, color: '#1E1B4B', mt: 2, fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
+                            <Typography variant="h4" sx={{ 
+                                fontWeight: 800, 
+                                color: '#1E1B4B', 
+                                mt: 2, 
+                                fontFamily: '"Plus Jakarta Sans", sans-serif',
+                                fontSize: { xs: '1.5rem', sm: '2.125rem' }
+                            }}>
                                 {currentUser.name}
                             </Typography>
-                            <Typography variant="body1" sx={{ color: '#6366F1', fontWeight: 700, mt: 0.5 }}>
+                            <Typography variant="body1" sx={{ 
+                                color: '#6366F1', 
+                                fontWeight: 700, 
+                                mt: 0.5,
+                                fontSize: { xs: '0.875rem', sm: '1rem' }
+                            }}>
                                 Student ID: #{currentUser._id.slice(-6).toUpperCase()}
                             </Typography>
                         </Box>
@@ -58,11 +69,11 @@ const StudentProfile = () => {
                         <Grid item xs={12}>
                             <InfoPaper elevation={0}>
                                 <SectionTitle>
-                                    <ClassIcon sx={{ color: '#6366F1' }} />
+                                    <ClassIcon sx={{ color: '#6366F1', fontSize: { xs: '1.25rem', sm: '1.5rem' } }} />
                                     Academic Details
                                 </SectionTitle>
                                 <Divider sx={{ mb: 3 }} />
-                                <Grid container spacing={3}>
+                                <Grid container spacing={{ xs: 2, sm: 3 }}>
                                     <Grid item xs={12} sm={4}>
                                         <InfoItem icon={<BadgeIcon />} label="Roll Number" value={currentUser.rollNum} />
                                     </Grid>
@@ -80,11 +91,11 @@ const StudentProfile = () => {
                         <Grid item xs={12}>
                             <InfoPaper elevation={0}>
                                 <SectionTitle>
-                                    <PersonIcon sx={{ color: '#6366F1' }} />
+                                    <PersonIcon sx={{ color: '#6366F1', fontSize: { xs: '1.25rem', sm: '1.5rem' } }} />
                                     Personal Information
                                 </SectionTitle>
                                 <Divider sx={{ mb: 3 }} />
-                                <Grid container spacing={3}>
+                                <Grid container spacing={{ xs: 2, sm: 3 }}>
                                     <Grid item xs={12} sm={6}>
                                         <InfoItem icon={<BirthIcon />} label="Date of Birth" value="January 1, 2000" />
                                     </Grid>
@@ -117,10 +128,20 @@ const InfoItem = ({ icon, label, value }) => (
     <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
         <IconBoxSmall>{icon}</IconBoxSmall>
         <Box>
-            <Typography variant="caption" sx={{ color: '#94A3B8', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <Typography variant="caption" sx={{ 
+                color: '#94A3B8', 
+                fontWeight: 700, 
+                textTransform: 'uppercase', 
+                letterSpacing: '0.05em',
+                fontSize: { xs: '0.7rem', sm: '0.75rem' }
+            }}>
                 {label}
             </Typography>
-            <Typography variant="body1" sx={{ color: '#1E1B4B', fontWeight: 600 }}>
+            <Typography variant="body1" sx={{ 
+                color: '#1E1B4B', 
+                fontWeight: 600,
+                fontSize: { xs: '0.9rem', sm: '1rem' }
+            }}>
                 {value || 'Not Provided'}
             </Typography>
         </Box>
@@ -134,6 +155,9 @@ const StyledRoot = styled(Box)(({ theme }) => ({
     minHeight: '100vh',
     backgroundColor: '#F8FAFC',
     padding: theme.spacing(4, 0),
+    [theme.breakpoints.down('sm')]: {
+        padding: theme.spacing(2, 0),
+    },
 }));
 
 const HeaderPaper = styled(Paper)(({ theme }) => ({
@@ -147,6 +171,12 @@ const HeaderPaper = styled(Paper)(({ theme }) => ({
     backgroundImage: 'linear-gradient(to bottom, #EEF2FF 0%, #FFFFFF 100%)',
     backgroundSize: '100% 120px',
     backgroundRepeat: 'no-repeat',
+    [theme.breakpoints.down('sm')]: {
+        padding: theme.spacing(4, 2),
+        borderRadius: '16px',
+        backgroundSize: '100% 80px',
+        marginBottom: theme.spacing(2),
+    },
 }));
 
 const StyledAvatar = styled(Avatar)(({ theme }) => ({
@@ -158,6 +188,12 @@ const StyledAvatar = styled(Avatar)(({ theme }) => ({
     color: '#FFFFFF',
     border: '6px solid #FFFFFF',
     boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+    [theme.breakpoints.down('sm')]: {
+        width: 80,
+        height: 80,
+        fontSize: '2rem',
+        border: '4px solid #FFFFFF',
+    },
 }));
 
 const InfoPaper = styled(Paper)(({ theme }) => ({
@@ -166,6 +202,10 @@ const InfoPaper = styled(Paper)(({ theme }) => ({
     backgroundColor: '#FFFFFF',
     border: '1px solid #E2E8F0',
     boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
+    [theme.breakpoints.down('sm')]: {
+        padding: theme.spacing(3, 2),
+        borderRadius: '16px',
+    },
 }));
 
 const SectionTitle = styled(Typography)(({ theme }) => ({
@@ -177,6 +217,10 @@ const SectionTitle = styled(Typography)(({ theme }) => ({
     alignItems: 'center',
     gap: '12px',
     marginBottom: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+        fontSize: '1.1rem',
+        gap: '8px',
+    },
 }));
 
 const IconBoxSmall = styled(Box)(({ theme }) => ({
@@ -190,5 +234,13 @@ const IconBoxSmall = styled(Box)(({ theme }) => ({
     color: '#6366F1',
     '& svg': {
         fontSize: '1.25rem'
+    },
+    [theme.breakpoints.down('sm')]: {
+        width: '32px',
+        height: '32px',
+        borderRadius: '8px',
+        '& svg': {
+            fontSize: '1rem'
+        }
     }
 }));

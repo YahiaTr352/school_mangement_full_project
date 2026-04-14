@@ -128,40 +128,48 @@ const TeacherViewStudent = () => {
                 >
                     {/* Header Profile Section */}
                     <ProfileCard elevation={0}>
-                        <Grid container spacing={3} alignItems="center">
+                        <Grid container spacing={3} alignItems="center" justifyContent={{ xs: 'center', sm: 'flex-start' }}>
                             <Grid item>
-                                <StyledAvatar>
-                                    <Person sx={{ fontSize: 40 }} />
+                                <StyledAvatar sx={{ width: { xs: 80, sm: 100 }, height: { xs: 80, sm: 100 } }}>
+                                    <Person sx={{ fontSize: { xs: 30, sm: 40 } }} />
                                 </StyledAvatar>
                             </Grid>
                             <Grid item xs={12} sm container>
-                                <Grid item xs container direction="column" spacing={1}>
+                                <Grid item xs container direction="column" spacing={1} alignItems={{ xs: 'center', sm: 'flex-start' }}>
                                     <Grid item>
-                                        <Typography variant="h4" sx={{ fontWeight: 800, color: '#1E1B4B', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
+                                        <Typography variant="h4" sx={{ 
+                                            fontWeight: 800, 
+                                            color: '#1E1B4B', 
+                                            fontFamily: '"Plus Jakarta Sans", sans-serif',
+                                            fontSize: { xs: '1.5rem', sm: '2.125rem' },
+                                            textAlign: { xs: 'center', sm: 'left' }
+                                        }}>
                                             {userDetails.name || "N/A"}
                                         </Typography>
                                     </Grid>
-                                    <Grid item sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                                        <InfoChip icon={<Badge fontSize="small" />} label={`Roll: ${userDetails.rollNum || "N/A"}`} variant="outlined" />
-                                        <InfoChip icon={<Class fontSize="small" />} label={`Class: ${sclassName?.sclassName || "N/A"}`} variant="outlined" />
-                                        <InfoChip icon={<School fontSize="small" />} label={studentSchool?.schoolName || "N/A"} variant="outlined" />
+                                    <Grid item sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, justifyContent: { xs: 'center', sm: 'flex-start' } }}>
+                                        <InfoChip icon={<Badge fontSize="small" />} label={`Roll: ${userDetails.rollNum || "N/A"}`} variant="outlined" size="small" />
+                                        <InfoChip icon={<Class fontSize="small" />} label={`Class: ${sclassName?.sclassName || "N/A"}`} variant="outlined" size="small" />
+                                        <InfoChip icon={<School fontSize="small" />} label={studentSchool?.schoolName || "N/A"} variant="outlined" size="small" />
                                     </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
                     </ProfileCard>
 
-                    <Grid container spacing={4}>
+                    <Grid container spacing={{ xs: 3, md: 4 }}>
                         {/* Attendance Stats */}
                         <Grid item xs={12} md={5}>
                             <SectionPaper elevation={0}>
-                                <Typography variant="h6" sx={{ mb: 3, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 1 }}>
+                                <Typography variant="h6" sx={{ mb: 3, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 1, fontSize: { xs: '1rem', sm: '1.25rem' } }}>
                                     <AssignmentTurnedIn sx={{ color: '#6366F1' }} /> Attendance Overview
                                 </Typography>
                                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                    <CustomPieChart data={chartData} />
+                                    <Box sx={{ width: '100%', maxWidth: 300 }}>
+                                        <CustomPieChart data={chartData} />
+                                    </Box>
                                     <Box sx={{ mt: 2, textAlign: 'center' }}>
-                                        <Typography variant="h3" sx={{ fontWeight: 800, color: '#6366F1' }}>
+                                        <Typography variant="h3" sx={{ fontWeight: 800, color: '#6366F1', fontSize: { xs: '2rem', sm: '3rem' } }}>
                                             {typeof overallAttendancePercentage === 'number' ? overallAttendancePercentage.toFixed(1) : "0.0"}%
                                         </Typography>
                                         <Typography variant="body2" sx={{ color: '#64748B' }}>
@@ -174,18 +182,27 @@ const TeacherViewStudent = () => {
 
                         {/* Subject Details (Attendance & Marks) */}
                         <Grid item xs={12} md={7}>
-                            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                            <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 3, md: 4 } }}>
                                 {/* Attendance Table */}
                                 <SectionPaper elevation={0}>
-                                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-                                        <Typography variant="h6" sx={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: 1 }}>
+                                    <Box sx={{ 
+                                        display: 'flex', 
+                                        flexDirection: { xs: 'column', sm: 'row' },
+                                        justifyContent: 'space-between', 
+                                        alignItems: { xs: 'flex-start', sm: 'center' }, 
+                                        mb: 3,
+                                        gap: 2
+                                    }}>
+                                        <Typography variant="h6" sx={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: 1, fontSize: { xs: '1rem', sm: '1.25rem' } }}>
                                             <AssignmentTurnedIn sx={{ color: '#6366F1' }} /> Your Subject Attendance
                                         </Typography>
                                         <ActionButton
+                                            fullWidth={false}
                                             variant="contained"
                                             startIcon={<AddCircleOutline />}
                                             onClick={() => teachSubjectID && navigate(`/Teacher/class/student/attendance/${studentID}/${teachSubjectID}`)}
                                             disabled={!teachSubjectID}
+                                            sx={{ width: { xs: '100%', sm: 'auto' }, py: { xs: 1, sm: 1.5 } }}
                                         >
                                             Add Attendance
                                         </ActionButton>
@@ -193,14 +210,14 @@ const TeacherViewStudent = () => {
 
                                     {teacherSubjectAttendance.length > 0 ? (
                                         <StyledTableContainer>
-                                            <Table>
+                                            <Table size="small">
                                                 <TableHead>
                                                     <StyledTableRow>
-                                                        <HeaderTableCell>Subject</HeaderTableCell>
-                                                        <HeaderTableCell align="center">Present</HeaderTableCell>
-                                                        <HeaderTableCell align="center">Total</HeaderTableCell>
-                                                        <HeaderTableCell align="center">Percentage</HeaderTableCell>
-                                                        <HeaderTableCell align="right">Details</HeaderTableCell>
+                                                        <HeaderTableCell sx={{ px: { xs: 1, sm: 2 } }}>Subject</HeaderTableCell>
+                                                        <HeaderTableCell align="center" sx={{ px: { xs: 1, sm: 2 } }}>Present</HeaderTableCell>
+                                                        <HeaderTableCell align="center" sx={{ px: { xs: 1, sm: 2 } }}>Total</HeaderTableCell>
+                                                        <HeaderTableCell align="center" sx={{ px: { xs: 1, sm: 2 } }}>%</HeaderTableCell>
+                                                        <HeaderTableCell align="right" sx={{ px: { xs: 1, sm: 2 } }}>Details</HeaderTableCell>
                                                     </StyledTableRow>
                                                 </TableHead>
                                                 <TableBody>
@@ -210,18 +227,18 @@ const TeacherViewStudent = () => {
                                                         return (
                                                             <React.Fragment key={subId || index}>
                                                                 <StyledTableRow>
-                                                                    <StyledTableCell sx={{ fontWeight: 600 }}>{subName}</StyledTableCell>
-                                                                    <StyledTableCell align="center">{present}</StyledTableCell>
-                                                                    <StyledTableCell align="center">{sessions}</StyledTableCell>
-                                                                    <StyledTableCell align="center">
+                                                                    <StyledTableCell sx={{ fontWeight: 600, px: { xs: 1, sm: 2 } }}>{subName}</StyledTableCell>
+                                                                    <StyledTableCell align="center" sx={{ px: { xs: 1, sm: 2 } }}>{present}</StyledTableCell>
+                                                                    <StyledTableCell align="center" sx={{ px: { xs: 1, sm: 2 } }}>{sessions}</StyledTableCell>
+                                                                    <StyledTableCell align="center" sx={{ px: { xs: 1, sm: 2 } }}>
                                                                         <Chip 
                                                                             label={`${percentage}%`} 
                                                                             color={percentage > 75 ? "success" : "warning"}
                                                                             size="small"
-                                                                            sx={{ fontWeight: 700 }}
+                                                                            sx={{ fontWeight: 700, fontSize: '0.7rem' }}
                                                                         />
                                                                     </StyledTableCell>
-                                                                    <StyledTableCell align="right">
+                                                                    <StyledTableCell align="right" sx={{ px: { xs: 1, sm: 2 } }}>
                                                                         <Tooltip title={isOpen ? "Hide Details" : "View Details"}>
                                                                             <IconButton size="small" onClick={() => handleOpen(subId)} sx={{ color: '#6366F1' }}>
                                                                                 {isOpen ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
@@ -232,15 +249,15 @@ const TeacherViewStudent = () => {
                                                                 <TableRow>
                                                                     <StyledTableCell sx={{ p: 0 }} colSpan={6}>
                                                                         <Collapse in={isOpen} timeout="auto" unmountOnExit>
-                                                                            <Box sx={{ p: 2, bgcolor: '#F8FAFC' }}>
-                                                                                <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 700, color: '#475569' }}>
+                                                                            <Box sx={{ p: { xs: 1, sm: 2 }, bgcolor: '#F8FAFC' }}>
+                                                                                <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 700, color: '#475569', fontSize: '0.8rem' }}>
                                                                                     Daily Attendance History
                                                                                 </Typography>
                                                                                 <Table size="small">
                                                                                     <TableHead>
                                                                                         <TableRow>
-                                                                                            <TableCell sx={{ fontWeight: 700 }}>Date</TableCell>
-                                                                                            <TableCell align="right" sx={{ fontWeight: 700 }}>Status</TableCell>
+                                                                                            <TableCell sx={{ fontWeight: 700, fontSize: '0.75rem' }}>Date</TableCell>
+                                                                                            <TableCell align="right" sx={{ fontWeight: 700, fontSize: '0.75rem' }}>Status</TableCell>
                                                                                         </TableRow>
                                                                                     </TableHead>
                                                                                     <TableBody>
@@ -249,13 +266,14 @@ const TeacherViewStudent = () => {
                                                                                             const dateStr = date.toString() !== "Invalid Date" ? date.toLocaleDateString() : "N/A";
                                                                                             return (
                                                                                                 <TableRow key={idx}>
-                                                                                                    <TableCell sx={{ color: '#64748B' }}>{dateStr}</TableCell>
+                                                                                                    <TableCell sx={{ color: '#64748B', fontSize: '0.75rem' }}>{dateStr}</TableCell>
                                                                                                     <TableCell align="right">
                                                                                                         <Chip 
                                                                                                             label={data.status} 
                                                                                                             size="small"
                                                                                                             color={data.status === "Present" ? "success" : "error"}
                                                                                                             variant="outlined"
+                                                                                                            sx={{ fontSize: '0.65rem', height: '20px' }}
                                                                                                         />
                                                                                                     </TableCell>
                                                                                                 </TableRow>
@@ -284,8 +302,15 @@ const TeacherViewStudent = () => {
 
                                 {/* Marks Table */}
                                 <SectionPaper elevation={0}>
-                                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-                                        <Typography variant="h6" sx={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: 1 }}>
+                                    <Box sx={{ 
+                                        display: 'flex', 
+                                        flexDirection: { xs: 'column', sm: 'row' },
+                                        justifyContent: 'space-between', 
+                                        alignItems: { xs: 'flex-start', sm: 'center' }, 
+                                        mb: 3,
+                                        gap: 2
+                                    }}>
+                                        <Typography variant="h6" sx={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: 1, fontSize: { xs: '1rem', sm: '1.25rem' } }}>
                                             <Assessment sx={{ color: '#6366F1' }} /> Your Subject Marks
                                         </Typography>
                                         <ActionButton
@@ -293,6 +318,7 @@ const TeacherViewStudent = () => {
                                             startIcon={<AddCircleOutline />}
                                             onClick={() => teachSubjectID && navigate(`/Teacher/class/student/marks/${studentID}/${teachSubjectID}`)}
                                             disabled={!teachSubjectID}
+                                            sx={{ width: { xs: '100%', sm: 'auto' }, py: { xs: 1, sm: 1.5 } }}
                                         >
                                             Add Marks
                                         </ActionButton>
@@ -300,28 +326,29 @@ const TeacherViewStudent = () => {
 
                                     {teacherSubjectMarks.length > 0 ? (
                                         <StyledTableContainer>
-                                            <Table>
+                                            <Table size="small">
                                                 <TableHead>
                                                     <StyledTableRow>
-                                                        <HeaderTableCell>Subject</HeaderTableCell>
-                                                        <HeaderTableCell align="center">Marks Obtained</HeaderTableCell>
-                                                        <HeaderTableCell align="center">Status</HeaderTableCell>
+                                                        <HeaderTableCell sx={{ px: { xs: 1, sm: 2 } }}>Subject</HeaderTableCell>
+                                                        <HeaderTableCell align="center" sx={{ px: { xs: 1, sm: 2 } }}>Marks</HeaderTableCell>
+                                                        <HeaderTableCell align="center" sx={{ px: { xs: 1, sm: 2 } }}>Status</HeaderTableCell>
                                                     </StyledTableRow>
                                                 </TableHead>
                                                 <TableBody>
                                                     {teacherSubjectMarks.map((result, index) => (
                                                         <StyledTableRow key={index}>
-                                                            <StyledTableCell sx={{ fontWeight: 600 }}>{result.subName?.subName || teachSubject}</StyledTableCell>
-                                                            <StyledTableCell align="center">
-                                                                <Typography variant="h6" sx={{ fontWeight: 800, color: '#6366F1' }}>
+                                                            <StyledTableCell sx={{ fontWeight: 600, px: { xs: 1, sm: 2 } }}>{result.subName?.subName || teachSubject}</StyledTableCell>
+                                                            <StyledTableCell align="center" sx={{ px: { xs: 1, sm: 2 } }}>
+                                                                <Typography variant="h6" sx={{ fontWeight: 800, color: '#6366F1', fontSize: { xs: '1rem', sm: '1.25rem' } }}>
                                                                     {result.marksObtained}
                                                                 </Typography>
                                                             </StyledTableCell>
-                                                            <StyledTableCell align="center">
+                                                            <StyledTableCell align="center" sx={{ px: { xs: 1, sm: 2 } }}>
                                                                 <Chip 
                                                                     label={result.marksObtained >= 50 ? "Pass" : "Fail"} 
                                                                     color={result.marksObtained >= 50 ? "success" : "error"}
-                                                                    sx={{ fontWeight: 700 }}
+                                                                    sx={{ fontWeight: 700, fontSize: '0.7rem' }}
+                                                                    size="small"
                                                                 />
                                                             </StyledTableCell>
                                                         </StyledTableRow>
