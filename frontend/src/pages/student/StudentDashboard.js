@@ -22,7 +22,7 @@ import AccountMenu from '../../components/AccountMenu';
 import { AppBar, Drawer } from '../../components/styles';
 
 const StudentDashboard = () => {
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
     const toggleDrawer = () => {
         setOpen(!open);
     };
@@ -40,7 +40,9 @@ const StudentDashboard = () => {
                             onClick={toggleDrawer}
                             sx={{
                                 marginRight: '36px',
-                                ...(open && { display: 'none' }),
+                                ...(open && { 
+                                    display: { xs: 'none', sm: 'block' } 
+                                }),
                             }}
                         >
                             <MenuIcon />
@@ -70,7 +72,7 @@ const StudentDashboard = () => {
                     </Toolbar>
                     <Divider />
                     <List component="nav">
-                        <StudentSideBar />
+                        <StudentSideBar toggleDrawer={toggleDrawer} />
                     </List>
                 </Drawer>
                 <Box component="main" sx={styles.boxStyled}>

@@ -96,9 +96,15 @@ const ShowStudents = () => {
                 
                 <BlueButton 
                     variant="contained"
-                    startIcon={<VisibilityIcon />}
+                    startIcon={<VisibilityIcon sx={{ fontSize: { xs: '1.2rem', sm: '1.5rem' } }} />}
                     onClick={() => navigate("/Admin/students/student/" + row.id)}
-                    sx={{ borderRadius: '10px', textTransform: 'none', fontWeight: 600 }}
+                    sx={{ 
+                        borderRadius: '10px', 
+                        textTransform: 'none', 
+                        fontWeight: 600,
+                        fontSize: { xs: '0.8rem', sm: '0.875rem' },
+                        padding: { xs: '8px 16px', sm: '6px 12px' }
+                    }}
                 >
                     View
                 </BlueButton>
@@ -115,12 +121,14 @@ const ShowStudents = () => {
                                 borderRadius: '10px 0 0 10px',
                                 textTransform: 'none',
                                 fontWeight: 600,
+                                fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                                padding: { xs: '4px 8px', sm: '6px 16px' },
                                 '&:hover': { backgroundColor: '#3730A3' }
                             },
                             '& .MuiButton-containedSizeSmall': {
                                 borderRadius: '0 10px 10px 0',
-                                minWidth: '32px',
-                                px: 1
+                                minWidth: { xs: '24px', sm: '32px' },
+                                px: { xs: 0.5, sm: 1 }
                             }
                         }}
                     >
@@ -129,7 +137,7 @@ const ShowStudents = () => {
                             size="small"
                             onClick={handleToggle}
                         >
-                            {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+                            {open ? <KeyboardArrowUp sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }} /> : <KeyboardArrowDown sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }} />}
                         </Button>
                     </ButtonGroup>
                     <Popper
@@ -194,22 +202,29 @@ const ShowStudents = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 4 }}>
+                    <Stack 
+                        direction={{ xs: 'column', sm: 'row' }} 
+                        justifyContent="space-between" 
+                        alignItems={{ xs: 'flex-start', sm: 'center' }} 
+                        spacing={3} 
+                        sx={{ mb: 4 }}
+                    >
                         <Box>
                             <Stack direction="row" alignItems="center" spacing={1.5} sx={{ mb: 1 }}>
-                                <GroupIcon sx={{ color: '#6366F1', fontSize: 32 }} />
+                                <GroupIcon sx={{ color: '#6366F1', fontSize: { xs: 28, sm: 32 } }} />
                                 <Typography 
                                     variant="h4" 
                                     sx={{ 
                                         fontWeight: 800, 
                                         color: '#1E1B4B', 
-                                        fontFamily: '"Plus Jakarta Sans", sans-serif'
+                                        fontFamily: '"Plus Jakarta Sans", sans-serif',
+                                        fontSize: { xs: '1.5rem', sm: '2rem', md: '2.125rem' }
                                     }}
                                 >
                                     Students List
                                 </Typography>
                             </Stack>
-                            <Typography variant="body1" sx={{ color: '#64748B' }}>
+                            <Typography variant="body1" sx={{ color: '#64748B', fontSize: { xs: '0.875rem', sm: '1rem' } }}>
                                 Manage and view all students enrolled in <Box component="span" sx={{ fontWeight: 700, color: '#6366F1' }}>{currentUser.schoolName}</Box>
                             </Typography>
                         </Box>
@@ -219,13 +234,14 @@ const ShowStudents = () => {
                             startIcon={<AddIcon />}
                             onClick={() => navigate("/Admin/addstudents")}
                             sx={{
+                                width: { xs: '100%', sm: 'auto' },
                                 backgroundColor: '#6366F1',
                                 '&:hover': { backgroundColor: '#4F46E5' },
                                 borderRadius: '12px',
-                                padding: '10px 24px',
+                                padding: { xs: '10px 16px', sm: '8px 20px' },
                                 textTransform: 'none',
                                 fontWeight: 700,
-                                fontSize: '0.95rem',
+                                fontSize: { xs: '0.875rem', sm: '0.9rem' },
                                 boxShadow: '0 4px 6px -1px rgba(99, 102, 241, 0.3)'
                             }}
                         >

@@ -298,13 +298,24 @@ const ClassDetails = () => {
                         <IconButton onClick={() => navigate(-1)} sx={{ color: '#6366F1' }}>
                             <ArrowBackIcon />
                         </IconButton>
-                        <Typography variant="h4" sx={{ fontWeight: 800, color: '#1E1B4B', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
+                        <Typography variant="h4" sx={{ 
+                            fontWeight: 800, 
+                            color: '#1E1B4B', 
+                            fontFamily: '"Plus Jakarta Sans", sans-serif',
+                            fontSize: { xs: '1.5rem', sm: '2rem', md: '2.125rem' }
+                        }}>
                             Class Management
                         </Typography>
                     </Box>
 
                     <TabContext value={value}>
-                        <StyledTabList onChange={handleChange} aria-label="class tabs">
+                        <StyledTabList 
+                            onChange={handleChange} 
+                            aria-label="class tabs"
+                            variant="scrollable"
+                            scrollButtons="auto"
+                            allowScrollButtonsMobile
+                        >
                             <Tab label="Overview" value="1" />
                             <Tab label="Subjects" value="2" />
                             <Tab label="Students" value="3" />

@@ -61,7 +61,9 @@ const AdminDashboard = () => {
                             onClick={toggleDrawer}
                             sx={{
                                 marginRight: '36px',
-                                ...(open && { display: 'none' }),
+                                ...(open && { 
+                                    display: { xs: 'none', sm: 'block' } 
+                                }),
                             }}
                         >
                             <MenuIcon />
@@ -91,7 +93,7 @@ const AdminDashboard = () => {
                     </Toolbar>
                     <Divider />
                     <List component="nav">
-                        <SideBar />
+                        <SideBar toggleDrawer={toggleDrawer} />
                     </List>
                 </Drawer>
                 <Box component="main" sx={styles.boxStyled}>

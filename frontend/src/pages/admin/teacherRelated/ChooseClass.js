@@ -51,14 +51,16 @@ const ChooseClass = ({ situation }) => {
             <Stack direction="row" spacing={1} justifyContent="center">
                 <PurpleButton 
                     variant="contained"
-                    startIcon={<TouchAppIcon />}
+                    startIcon={<TouchAppIcon sx={{ fontSize: { xs: '1.2rem', sm: '1.5rem' } }} />}
                     onClick={() => navigateHandler(row.id)}
                     sx={{ 
                         borderRadius: '10px', 
                         textTransform: 'none', 
                         fontWeight: 600,
                         backgroundColor: '#6366F1',
-                        '&:hover': { backgroundColor: '#4F46E5' }
+                        '&:hover': { backgroundColor: '#4F46E5' },
+                        fontSize: { xs: '0.8rem', sm: '0.875rem' },
+                        padding: { xs: '6px 12px', sm: '8px 16px' }
                     }}
                 >
                     Choose
@@ -79,19 +81,27 @@ const ChooseClass = ({ situation }) => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <Box sx={{ mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <Stack direction="row" alignItems="center" spacing={2}>
-                            <IconButton onClick={() => navigate(-1)} sx={{ color: '#6366F1' }}>
-                                <ArrowBackIcon />
+                    <Box sx={{ mb: { xs: 3, sm: 4 }, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <Stack direction="row" alignItems="center" spacing={{ xs: 1.5, sm: 2 }}>
+                            <IconButton onClick={() => navigate(-1)} sx={{ 
+                                color: '#6366F1',
+                                p: { xs: 0.5, sm: 1 }
+                            }}>
+                                <ArrowBackIcon sx={{ fontSize: { xs: 20, sm: 24 } }} />
                             </IconButton>
                             <Box>
                                 <Stack direction="row" alignItems="center" spacing={1.5} sx={{ mb: 0.5 }}>
-                                    <SchoolIcon sx={{ color: '#6366F1', fontSize: 30 }} />
-                                    <Typography variant="h4" sx={{ fontWeight: 800, color: '#1E1B4B', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
+                                    <SchoolIcon sx={{ color: '#6366F1', fontSize: { xs: 22, sm: 30 } }} />
+                                    <Typography variant="h4" sx={{ 
+                                        fontWeight: 800, 
+                                        color: '#1E1B4B', 
+                                        fontFamily: '"Plus Jakarta Sans", sans-serif',
+                                        fontSize: { xs: '1.25rem', sm: '1.75rem', md: '2.125rem' }
+                                    }}>
                                         Select a Class
                                     </Typography>
                                 </Stack>
-                                <Typography variant="body1" sx={{ color: '#64748B' }}>
+                                <Typography variant="body1" sx={{ color: '#64748B', fontSize: { xs: '0.75rem', sm: '1rem' } }}>
                                     {situation === "Teacher" ? "Select a class to assign a teacher" : "Select a class to add new subjects"}
                                 </Typography>
                             </Box>
@@ -99,8 +109,8 @@ const ChooseClass = ({ situation }) => {
                     </Box>
 
                     {getresponse ? (
-                        <StyledPaper elevation={0} sx={{ textAlign: 'center', py: 10 }}>
-                            <Typography variant="h6" sx={{ color: '#64748B', mb: 3 }}>
+                        <StyledPaper elevation={0} sx={{ textAlign: 'center', py: { xs: 6, sm: 10 }, px: 3 }}>
+                            <Typography variant="h6" sx={{ color: '#64748B', mb: 3, fontSize: { xs: '1rem', sm: '1.25rem' } }}>
                                 No classes found. You need to create a class first.
                             </Typography>
                             <Button 
@@ -110,15 +120,16 @@ const ChooseClass = ({ situation }) => {
                                     backgroundColor: '#6366F1', 
                                     borderRadius: '12px',
                                     textTransform: 'none',
-                                    padding: '10px 24px',
-                                    fontWeight: 700
+                                    padding: { xs: '8px 20px', sm: '10px 24px' },
+                                    fontWeight: 700,
+                                    fontSize: { xs: '0.875rem', sm: '1rem' }
                                 }}
                             >
                                 Add Class
                             </Button>
                         </StyledPaper>
                     ) : (
-                        <StyledPaper elevation={0}>
+                        <StyledPaper elevation={0} sx={{ p: { xs: 2, sm: 4 } }}>
                             {Array.isArray(sclassesList) && sclassesList.length > 0 && (
                                 <TableTemplate buttonHaver={SclassButtonHaver} columns={sclassColumns} rows={sclassRows} />
                             )}

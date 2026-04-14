@@ -64,38 +64,49 @@ const AdminProfile = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <Box sx={{ mb: 4 }}>
-                    <Typography variant="h4" sx={{ fontWeight: 800, color: '#1E1B4B', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
+                <Box sx={{ mb: { xs: 3, sm: 4 } }}>
+                    <Typography 
+                        variant="h4" 
+                        sx={{ 
+                            fontWeight: 800, 
+                            color: '#1E1B4B', 
+                            fontFamily: '"Plus Jakarta Sans", sans-serif',
+                            fontSize: { xs: '1.5rem', sm: '2rem', md: '2.125rem' }
+                        }}
+                    >
                         My Profile
                     </Typography>
-                    <Typography variant="body1" sx={{ color: '#64748B' }}>
+                    <Typography variant="body1" sx={{ color: '#64748B', fontSize: { xs: '0.875rem', sm: '1rem' } }}>
                         Manage your account settings and personal information
                     </Typography>
                 </Box>
 
-                <Grid container spacing={4}>
+                <Grid container spacing={{ xs: 3, md: 4 }}>
                     <Grid item xs={12} md={4}>
-                        <StyledPaper elevation={0} sx={{ textAlign: 'center', p: 4 }}>
+                        <StyledPaper elevation={0} sx={{ textAlign: 'center', p: { xs: 3, sm: 4 } }}>
                             <Avatar sx={{ 
-                                width: 120, height: 120, mx: 'auto', mb: 2, 
-                                bgcolor: '#6366F1', fontSize: '3rem',
+                                width: { xs: 100, sm: 120 }, 
+                                height: { xs: 100, sm: 120 }, 
+                                mx: 'auto', mb: 2, 
+                                bgcolor: '#6366F1', 
+                                fontSize: { xs: '2.5rem', sm: '3rem' },
                                 boxShadow: '0 10px 15px -3px rgba(99, 102, 241, 0.3)'
                             }}>
                                 {currentUser.name.charAt(0).toUpperCase()}
                             </Avatar>
-                            <Typography variant="h5" sx={{ fontWeight: 700, color: '#1E1B4B', mb: 0.5 }}>
+                            <Typography variant="h5" sx={{ fontWeight: 700, color: '#1E1B4B', mb: 0.5, fontSize: { xs: '1.25rem', sm: '1.5rem' } }}>
                                 {currentUser.name}
                             </Typography>
-                            <Typography variant="body2" sx={{ color: '#6366F1', fontWeight: 600, mb: 3 }}>
+                            <Typography variant="body2" sx={{ color: '#6366F1', fontWeight: 600, mb: 3, fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
                                 Administrator
                             </Typography>
                             
                             <Divider sx={{ mb: 3 }} />
                             
-                            <Stack spacing={2} sx={{ textAlign: 'left' }}>
-                                <InfoItem icon={<BadgeIcon sx={{ color: '#94A3B8' }} />} label="Role" value="Admin" />
-                                <InfoItem icon={<SchoolIcon sx={{ color: '#94A3B8' }} />} label="Institution" value={currentUser.schoolName} />
-                                <InfoItem icon={<EmailIcon sx={{ color: '#94A3B8' }} />} label="Email" value={currentUser.email} />
+                            <Stack spacing={2.5} sx={{ textAlign: 'left' }}>
+                                <InfoItem icon={<BadgeIcon sx={{ color: '#94A3B8', fontSize: { xs: 20, sm: 24 } }} />} label="Role" value="Admin" />
+                                <InfoItem icon={<SchoolIcon sx={{ color: '#94A3B8', fontSize: { xs: 20, sm: 24 } }} />} label="Institution" value={currentUser.schoolName} />
+                                <InfoItem icon={<EmailIcon sx={{ color: '#94A3B8', fontSize: { xs: 20, sm: 24 } }} />} label="Email" value={currentUser.email} />
                             </Stack>
 
                             <Button 
@@ -106,9 +117,10 @@ const AdminProfile = () => {
                                 sx={{ 
                                     mt: 4, 
                                     borderRadius: '12px',
-                                    py: 1.5,
+                                    py: { xs: 1.2, sm: 1.5 },
                                     textTransform: 'none',
                                     fontWeight: 700,
+                                    fontSize: { xs: '0.875rem', sm: '1rem' },
                                     backgroundColor: showTab ? '#64748B' : '#6366F1',
                                     '&:hover': { backgroundColor: showTab ? '#475569' : '#4F46E5' }
                                 }}
@@ -120,13 +132,21 @@ const AdminProfile = () => {
 
                     <Grid item xs={12} md={8}>
                         <Collapse in={showTab} timeout="auto" unmountOnExit>
-                            <StyledPaper elevation={0} sx={{ p: 4, mb: 4 }}>
-                                <Typography variant="h5" sx={{ fontWeight: 700, color: '#1E1B4B', mb: 4, display: 'flex', alignItems: 'center', gap: 1 }}>
-                                    <EditIcon color="primary" /> Edit Details
+                            <StyledPaper elevation={0} sx={{ p: { xs: 3, sm: 4 }, mb: 4 }}>
+                                <Typography variant="h5" sx={{ 
+                                    fontWeight: 700, 
+                                    color: '#1E1B4B', 
+                                    mb: { xs: 3, sm: 4 }, 
+                                    display: 'flex', 
+                                    alignItems: 'center', 
+                                    gap: 1,
+                                    fontSize: { xs: '1.1rem', sm: '1.5rem' }
+                                }}>
+                                    <EditIcon color="primary" sx={{ fontSize: { xs: 24, sm: 28 } }} /> Edit Details
                                 </Typography>
                                 
                                 <form onSubmit={submitHandler}>
-                                    <Grid container spacing={3}>
+                                    <Grid container spacing={{ xs: 2.5, sm: 3 }}>
                                         <Grid item xs={12} sm={6}>
                                             <StyledTextField
                                                 fullWidth
@@ -134,7 +154,7 @@ const AdminProfile = () => {
                                                 value={name}
                                                 onChange={(e) => setName(e.target.value)}
                                                 required
-                                                InputProps={{ startAdornment: <PersonIcon sx={{ color: '#94A3B8', mr: 1 }} /> }}
+                                                InputProps={{ startAdornment: <PersonIcon sx={{ color: '#94A3B8', mr: 1, fontSize: { xs: 20, sm: 24 } }} /> }}
                                             />
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
@@ -144,7 +164,7 @@ const AdminProfile = () => {
                                                 value={schoolName}
                                                 onChange={(e) => setSchoolName(e.target.value)}
                                                 required
-                                                InputProps={{ startAdornment: <SchoolIcon sx={{ color: '#94A3B8', mr: 1 }} /> }}
+                                                InputProps={{ startAdornment: <SchoolIcon sx={{ color: '#94A3B8', mr: 1, fontSize: { xs: 20, sm: 24 } }} /> }}
                                             />
                                         </Grid>
                                         <Grid item xs={12}>
@@ -155,7 +175,7 @@ const AdminProfile = () => {
                                                 value={email}
                                                 onChange={(e) => setEmail(e.target.value)}
                                                 required
-                                                InputProps={{ startAdornment: <EmailIcon sx={{ color: '#94A3B8', mr: 1 }} /> }}
+                                                InputProps={{ startAdornment: <EmailIcon sx={{ color: '#94A3B8', mr: 1, fontSize: { xs: 20, sm: 24 } }} /> }}
                                             />
                                         </Grid>
                                         <Grid item xs={12}>
@@ -165,7 +185,7 @@ const AdminProfile = () => {
                                                 type="password"
                                                 value={password}
                                                 onChange={(e) => setPassword(e.target.value)}
-                                                InputProps={{ startAdornment: <LockIcon sx={{ color: '#94A3B8', mr: 1 }} /> }}
+                                                InputProps={{ startAdornment: <LockIcon sx={{ color: '#94A3B8', mr: 1, fontSize: { xs: 20, sm: 24 } }} /> }}
                                             />
                                         </Grid>
                                         <Grid item xs={12}>
@@ -176,9 +196,11 @@ const AdminProfile = () => {
                                                 startIcon={loader ? <CircularProgress size={20} color="inherit" /> : <SaveIcon />}
                                                 sx={{ 
                                                     borderRadius: '12px',
-                                                    px: 4, py: 1.5,
+                                                    width: { xs: '100%', sm: 'auto' },
+                                                    px: 4, py: { xs: 1.2, sm: 1.5 },
                                                     textTransform: 'none',
                                                     fontWeight: 700,
+                                                    fontSize: { xs: '0.875rem', sm: '1rem' },
                                                     backgroundColor: '#10B981',
                                                     '&:hover': { backgroundColor: '#059669' }
                                                 }}
@@ -191,18 +213,18 @@ const AdminProfile = () => {
                             </StyledPaper>
                         </Collapse>
 
-                        <StyledPaper elevation={0} sx={{ p: 4 }}>
-                            <Typography variant="h6" sx={{ fontWeight: 700, color: '#1E1B4B', mb: 3 }}>
+                        <StyledPaper elevation={0} sx={{ p: { xs: 3, sm: 4 } }}>
+                            <Typography variant="h6" sx={{ fontWeight: 700, color: '#1E1B4B', mb: 3, fontSize: { xs: '1rem', sm: '1.25rem' } }}>
                                 Account Overview
                             </Typography>
-                            <Grid container spacing={3}>
+                            <Grid container spacing={{ xs: 2, sm: 3 }}>
                                 <Grid item xs={12} sm={4}>
                                     <StatBox label="User ID" value={`#${currentUser._id.substring(0, 8)}`} />
                                 </Grid>
-                                <Grid item xs={12} sm={4}>
+                                <Grid item xs={6} sm={4}>
                                     <StatBox label="Status" value="Active" color="#10B981" />
                                 </Grid>
-                                <Grid item xs={12} sm={4}>
+                                <Grid item xs={6} sm={4}>
                                     <StatBox label="Permissions" value="Full Access" />
                                 </Grid>
                             </Grid>

@@ -85,19 +85,20 @@ const StudentHomePage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <Box sx={{ mb: 5 }}>
+                <Box sx={{ mb: { xs: 3, sm: 5 } }}>
                     <Typography 
                         variant="h4" 
                         sx={{ 
                             fontWeight: 800, 
                             color: '#1E1B4B', 
                             fontFamily: '"Plus Jakarta Sans", sans-serif',
-                            mb: 1
+                            mb: 1,
+                            fontSize: { xs: '1.5rem', sm: '2rem', md: '2.125rem' }
                         }}
                     >
                         Hello, {currentUser.name}! 👋
                     </Typography>
-                    <Typography variant="body1" sx={{ color: '#64748B' }}>
+                    <Typography variant="body1" sx={{ color: '#64748B', fontSize: { xs: '0.875rem', sm: '1rem' } }}>
                         Welcome to your dashboard at <Box component="span" sx={{ fontWeight: 700, color: '#6366F1' }}>{currentUser.schoolName}</Box>.
                     </Typography>
                 </Box>
@@ -112,8 +113,13 @@ const StudentHomePage = () => {
                             transition={{ duration: 0.5, delay: stat.delay }}
                         >
                             <StyledStatCard elevation={0}>
-                                <IconContainer sx={{ backgroundColor: `${stat.color}15`, color: stat.color }}>
-                                    {stat.icon}
+                                <IconContainer sx={{ 
+                                    backgroundColor: `${stat.color}15`, 
+                                    color: stat.color,
+                                    width: { xs: '50px', sm: '60px' },
+                                    height: { xs: '50px', sm: '60px' }
+                                }}>
+                                    {React.cloneElement(stat.icon, { sx: { fontSize: { xs: 30, sm: 40 } } })}
                                 </IconContainer>
                                 <Box sx={{ textAlign: 'left', mt: 2 }}>
                                     <Typography 
@@ -123,7 +129,8 @@ const StudentHomePage = () => {
                                             fontWeight: 600, 
                                             textTransform: 'uppercase', 
                                             letterSpacing: '0.05em',
-                                            mb: 0.5
+                                            mb: 0.5,
+                                            fontSize: { xs: '0.65rem', sm: '0.75rem' }
                                         }}
                                     >
                                         {stat.title}
@@ -133,7 +140,8 @@ const StudentHomePage = () => {
                                         sx={{ 
                                             fontWeight: 800, 
                                             color: '#1E1B4B',
-                                            fontFamily: '"Plus Jakarta Sans", sans-serif'
+                                            fontFamily: '"Plus Jakarta Sans", sans-serif',
+                                            fontSize: { xs: '1.5rem', sm: '2rem', md: '2.125rem' }
                                         }}
                                     >
                                         <CountUp 
@@ -157,11 +165,11 @@ const StudentHomePage = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.5 }}
                     >
-                        <StyledPaper elevation={0}>
-                            <Typography variant="h6" sx={{ fontWeight: 700, color: '#1E1B4B', mb: 3 }}>
+                        <StyledPaper elevation={0} sx={{ p: { xs: 2.5, sm: 4 } }}>
+                            <Typography variant="h6" sx={{ fontWeight: 700, color: '#1E1B4B', mb: 3, fontSize: { xs: '1rem', sm: '1.25rem' } }}>
                                 Attendance Distribution
                             </Typography>
-                            <Box sx={{ height: 250, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <Box sx={{ height: { xs: 200, sm: 250 }, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                 {loading ? (
                                     <Typography color="textSecondary">Loading chart...</Typography>
                                 ) : response ? (
@@ -180,15 +188,16 @@ const StudentHomePage = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.6 }}
                     >
-                        <StyledPaper elevation={0}>
+                        <StyledPaper elevation={0} sx={{ p: { xs: 2.5, sm: 4 } }}>
                             <Stack direction="row" alignItems="center" spacing={1.5} sx={{ mb: 3 }}>
-                                <NotificationsActive sx={{ color: '#6366F1' }} />
+                                <NotificationsActive sx={{ color: '#6366F1', fontSize: { xs: 20, sm: 24 } }} />
                                 <Typography 
                                     variant="h6" 
                                     sx={{ 
                                         fontWeight: 700, 
                                         color: '#1E1B4B',
-                                        fontFamily: '"Plus Jakarta Sans", sans-serif'
+                                        fontFamily: '"Plus Jakarta Sans", sans-serif',
+                                        fontSize: { xs: '1rem', sm: '1.25rem' }
                                     }}
                                 >
                                     Latest Announcements
@@ -207,6 +216,9 @@ export default StudentHomePage;
 
 const StyledStatCard = styled(Paper)(({ theme }) => ({
   padding: '24px',
+  [theme.breakpoints.down('sm')]: {
+    padding: '16px',
+  },
   borderRadius: '20px !important',
   backgroundColor: '#FFFFFF !important',
   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05) !important',
@@ -225,8 +237,6 @@ const StyledStatCard = styled(Paper)(({ theme }) => ({
 }));
 
 const IconContainer = styled(Box)(({ theme }) => ({
-  width: '60px',
-  height: '60px',
   borderRadius: '16px',
   display: 'flex',
   alignItems: 'center',
@@ -234,7 +244,6 @@ const IconContainer = styled(Box)(({ theme }) => ({
 }));
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
-  padding: '32px',
   borderRadius: '20px !important',
   backgroundColor: '#FFFFFF !important',
   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05) !important',

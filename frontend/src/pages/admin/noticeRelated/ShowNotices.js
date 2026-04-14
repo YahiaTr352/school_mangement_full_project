@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import {
-    Box, IconButton, Typography, Container, Stack, Tooltip, Grid, Card, CardContent, CardActions, Divider
+    Box, IconButton, Typography, Container, Stack, Tooltip, Grid, Card, CardContent, CardActions, Divider, CircularProgress
 } from '@mui/material';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -89,36 +89,59 @@ const ShowNotices = () => {
         <Container maxWidth="lg" sx={{ mt: 4, mb: 8 }}>
             {loading ? (
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 10 }}>
-                    <Typography variant="h5">Loading...</Typography>
+                    <CircularProgress sx={{ color: '#6366F1' }} />
                 </Box>
             ) : (
                 <>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 5 }}>
-                        <Stack direction="row" spacing={2} alignItems="center">
+                    <Box sx={{ 
+                        display: 'flex', 
+                        flexDirection: { xs: 'column', sm: 'row' },
+                        justifyContent: 'space-between', 
+                        alignItems: { xs: 'flex-start', sm: 'center' }, 
+                        mb: { xs: 3, sm: 5 },
+                        gap: 2
+                    }}>
+                        <Stack direction="row" spacing={{ xs: 1.5, sm: 2 }} alignItems="center">
                             <Box sx={{ 
                                 backgroundColor: '#4338CA', 
-                                p: 1.5, 
+                                p: { xs: 1, sm: 1.5 }, 
                                 borderRadius: '12px',
                                 display: 'flex',
                                 color: 'white'
                             }}>
-                                <AssignmentIcon fontSize="large" />
+                                <AssignmentIcon sx={{ fontSize: { xs: 24, sm: 32 } }} />
                             </Box>
                             <Box>
-                                <Typography variant="h4" sx={{ fontWeight: 800, color: '#1e293b', letterSpacing: '-0.02em' }}>
+                                <Typography 
+                                    variant="h4" 
+                                    sx={{ 
+                                        fontWeight: 800, 
+                                        color: '#1e293b', 
+                                        letterSpacing: '-0.02em',
+                                        fontSize: { xs: '1.5rem', sm: '2rem', md: '2.125rem' }
+                                    }}
+                                >
                                     Notice Board
                                 </Typography>
-                                <Typography variant="body2" color="textSecondary">
+                                <Typography variant="body2" color="textSecondary" sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
                                     Manage and broadcast announcements to the school
                                 </Typography>
                             </Box>
                         </Stack>
-                        <Stack direction="row" spacing={2}>
+                        <Stack direction="row" spacing={1.5} sx={{ width: { xs: '100%', sm: 'auto' } }}>
                             <BlueButton 
                                 variant="contained" 
                                 startIcon={<PostAddIcon />}
                                 onClick={() => navigate("/Admin/addnotice")}
-                                sx={{ borderRadius: '10px', px: 3, py: 1.2, textTransform: 'none', fontWeight: 600 }}
+                                sx={{ 
+                                    borderRadius: '10px', 
+                                    px: { xs: 2, sm: 3 }, 
+                                    py: { xs: 1, sm: 1.2 }, 
+                                    textTransform: 'none', 
+                                    fontWeight: 600,
+                                    fontSize: { xs: '0.8rem', sm: '0.875rem' },
+                                    flex: { xs: 1, sm: 'none' }
+                                }}
                             >
                                 Add Notice
                             </BlueButton>
@@ -127,7 +150,15 @@ const ShowNotices = () => {
                                     variant="contained" 
                                     startIcon={<DeleteIcon />}
                                     onClick={() => deleteHandler(currentUser._id, "Notices")}
-                                    sx={{ borderRadius: '10px', px: 3, py: 1.2, textTransform: 'none', fontWeight: 600 }}
+                                    sx={{ 
+                                        borderRadius: '10px', 
+                                        px: { xs: 2, sm: 3 }, 
+                                        py: { xs: 1, sm: 1.2 }, 
+                                        textTransform: 'none', 
+                                        fontWeight: 600,
+                                        fontSize: { xs: '0.8rem', sm: '0.875rem' },
+                                        flex: { xs: 1, sm: 'none' }
+                                    }}
                                 >
                                     Clear All
                                 </DarkRedButton>
@@ -141,29 +172,29 @@ const ShowNotices = () => {
                             flexDirection: 'column', 
                             alignItems: 'center', 
                             justifyContent: 'center',
-                            mt: 8,
-                            p: 6,
+                            mt: { xs: 4, sm: 8 },
+                            p: { xs: 3, sm: 6 },
                             backgroundColor: 'white',
                             borderRadius: '24px',
                             border: '2px dashed #e2e8f0'
                         }}>
-                            <AssignmentIcon sx={{ fontSize: 80, color: '#cbd5e1', mb: 2 }} />
-                            <Typography variant="h5" sx={{ fontWeight: 600, color: '#64748b' }} gutterBottom>
+                            <AssignmentIcon sx={{ fontSize: { xs: 50, sm: 80 }, color: '#cbd5e1', mb: 2 }} />
+                            <Typography variant="h5" sx={{ fontWeight: 600, color: '#64748b', fontSize: { xs: '1.1rem', sm: '1.5rem' } }} gutterBottom>
                                 No notices yet
                             </Typography>
-                            <Typography variant="body1" color="textSecondary" align="center" sx={{ maxWidth: 400, mb: 4 }}>
+                            <Typography variant="body1" color="textSecondary" align="center" sx={{ maxWidth: 400, mb: 3, fontSize: { xs: '0.875rem', sm: '1rem' } }}>
                                 Broadcast important information, holidays, or events to everyone in the school.
                             </Typography>
                             <BlueButton 
                                 variant="contained" 
                                 onClick={() => navigate("/Admin/addnotice")}
-                                sx={{ borderRadius: '10px', px: 4, py: 1.5 }}
+                                sx={{ borderRadius: '10px', px: { xs: 3, sm: 4 }, py: { xs: 1, sm: 1.5 }, fontSize: { xs: '0.875rem', sm: '1rem' } }}
                             >
                                 Create First Notice
                             </BlueButton>
                         </Box>
                     ) : (
-                        <Grid container spacing={3}>
+                        <Grid container spacing={{ xs: 2, sm: 3 }}>
                             {noticesList.map((notice) => {
                                 const date = new Date(notice.date);
                                 const dateString = date.toString() !== "Invalid Date" ? date.toLocaleDateString('en-US', {
@@ -175,12 +206,13 @@ const ShowNotices = () => {
                                 return (
                                     <Grid item xs={12} sm={6} md={4} key={notice._id}>
                                         <StyledCard>
-                                            <CardContent sx={{ flexGrow: 1, p: 3 }}>
+                                            <CardContent sx={{ flexGrow: 1, p: { xs: 2, sm: 3 } }}>
                                                 <Typography variant="h6" sx={{ 
                                                     fontWeight: 700, 
                                                     color: '#1e293b', 
-                                                    mb: 1.5,
+                                                    mb: 1,
                                                     lineHeight: 1.3,
+                                                    fontSize: { xs: '1rem', sm: '1.25rem' },
                                                     display: '-webkit-box',
                                                     WebkitLineClamp: 2,
                                                     WebkitBoxOrient: 'vertical',
@@ -191,7 +223,8 @@ const ShowNotices = () => {
                                                 <Typography variant="body2" sx={{ 
                                                     color: '#475569',
                                                     lineHeight: 1.6,
-                                                    mb: 2,
+                                                    mb: 1,
+                                                    fontSize: { xs: '0.8rem', sm: '0.875rem' },
                                                     display: '-webkit-box',
                                                     WebkitLineClamp: 4,
                                                     WebkitBoxOrient: 'vertical',
@@ -201,9 +234,9 @@ const ShowNotices = () => {
                                                 </Typography>
                                             </CardContent>
                                             <Divider sx={{ borderStyle: 'dashed' }} />
-                                            <CardActions sx={{ px: 3, py: 2, justifyContent: 'space-between', backgroundColor: '#fcfcfd' }}>
-                                                <DateBadge>
-                                                    <CalendarMonthIcon sx={{ fontSize: 16 }} />
+                                            <CardActions sx={{ px: { xs: 2, sm: 3 }, py: { xs: 1.5, sm: 2 }, justifyContent: 'space-between', backgroundColor: '#fcfcfd' }}>
+                                                <DateBadge sx={{ fontSize: { xs: '0.7rem', sm: '0.875rem' }, py: 0.5, px: 1.5 }}>
+                                                    <CalendarMonthIcon sx={{ fontSize: { xs: 14, sm: 16 } }} />
                                                     {dateString}
                                                 </DateBadge>
                                                 <Tooltip title="Delete Notice">
@@ -213,10 +246,11 @@ const ShowNotices = () => {
                                                         sx={{ 
                                                             color: '#ef4444',
                                                             backgroundColor: '#fee2e2',
-                                                            '&:hover': { backgroundColor: '#fecaca' }
+                                                            '&:hover': { backgroundColor: '#fecaca' },
+                                                            p: { xs: 0.5, sm: 1 }
                                                         }}
                                                     >
-                                                        <DeleteIcon fontSize="small" />
+                                                        <DeleteIcon sx={{ fontSize: { xs: 18, sm: 20 } }} />
                                                     </IconButton>
                                                 </Tooltip>
                                             </CardActions>

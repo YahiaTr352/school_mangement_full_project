@@ -25,7 +25,7 @@ import TeacherViewStudent from './TeacherViewStudent';
 import StudentExamMarks from '../admin/studentRelated/StudentExamMarks';
 
 const TeacherDashboard = () => {
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
     const toggleDrawer = () => {
         setOpen(!open);
     };
@@ -43,7 +43,9 @@ const TeacherDashboard = () => {
                             onClick={toggleDrawer}
                             sx={{
                                 marginRight: '36px',
-                                ...(open && { display: 'none' }),
+                                ...(open && { 
+                                    display: { xs: 'none', sm: 'block' } 
+                                }),
                             }}
                         >
                             <MenuIcon />
@@ -73,7 +75,7 @@ const TeacherDashboard = () => {
                     </Toolbar>
                     <Divider />
                     <List component="nav">
-                        <TeacherSideBar />
+                        <TeacherSideBar toggleDrawer={toggleDrawer} />
                     </List>
                 </Drawer>
                 <Box component="main" sx={styles.boxStyled}>

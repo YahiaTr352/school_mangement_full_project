@@ -81,12 +81,13 @@ const AdminHomePage = () => {
                             fontWeight: 800, 
                             color: '#1E1B4B', 
                             fontFamily: '"Plus Jakarta Sans", sans-serif',
-                            mb: 1
+                            mb: 1,
+                            fontSize: { xs: '1.5rem', sm: '2rem', md: '2.125rem' }
                         }}
                     >
                         Welcome Back, {currentUser.name}
                     </Typography>
-                    <Typography variant="body1" sx={{ color: '#64748B' }}>
+                    <Typography variant="body1" sx={{ color: '#64748B', fontSize: { xs: '0.875rem', sm: '1rem' } }}>
                         Here is what's happening at <Box component="span" sx={{ fontWeight: 700, color: '#6366F1' }}>{currentUser.schoolName}</Box> today.
                     </Typography>
                 </Box>
@@ -101,8 +102,13 @@ const AdminHomePage = () => {
                             transition={{ duration: 0.5, delay: stat.delay }}
                         >
                             <StyledStatCard elevation={0}>
-                                <IconContainer sx={{ backgroundColor: `${stat.color}15`, color: stat.color }}>
-                                    {stat.icon}
+                                <IconContainer sx={{ 
+                                    backgroundColor: `${stat.color}15`, 
+                                    color: stat.color,
+                                    width: { xs: '50px', sm: '60px' },
+                                    height: { xs: '50px', sm: '60px' }
+                                }}>
+                                    {React.cloneElement(stat.icon, { sx: { fontSize: { xs: 30, sm: 40 } } })}
                                 </IconContainer>
                                 <Box sx={{ textAlign: 'left', mt: 2 }}>
                                     <Typography 
@@ -112,7 +118,8 @@ const AdminHomePage = () => {
                                             fontWeight: 600, 
                                             textTransform: 'uppercase', 
                                             letterSpacing: '0.05em',
-                                            mb: 0.5
+                                            mb: 0.5,
+                                            fontSize: { xs: '0.65rem', sm: '0.75rem' }
                                         }}
                                     >
                                         {stat.title}
@@ -122,7 +129,8 @@ const AdminHomePage = () => {
                                         sx={{ 
                                             fontWeight: 800, 
                                             color: '#1E1B4B',
-                                            fontFamily: '"Plus Jakarta Sans", sans-serif'
+                                            fontFamily: '"Plus Jakarta Sans", sans-serif',
+                                            fontSize: { xs: '1.5rem', sm: '2rem', md: '2.125rem' }
                                         }}
                                     >
                                         <CountUp 
@@ -133,7 +141,7 @@ const AdminHomePage = () => {
                                         />
                                     </Typography>
                                 </Box>
-                                <TrendIndicator sx={{ color: stat.color }}>
+                                <TrendIndicator sx={{ color: stat.color, fontSize: { xs: '0.65rem', sm: '0.75rem' } }}>
                                     +12% from last month
                                 </TrendIndicator>
                             </StyledStatCard>
@@ -147,15 +155,16 @@ const AdminHomePage = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.5 }}
                     >
-                        <StyledPaper elevation={0}>
+                        <StyledPaper elevation={0} sx={{ p: { xs: 2, sm: 4 } }}>
                             <Stack direction="row" alignItems="center" spacing={1.5} sx={{ mb: 3 }}>
-                                <NotificationsActive sx={{ color: '#6366F1' }} />
+                                <NotificationsActive sx={{ color: '#6366F1', fontSize: { xs: 20, sm: 24 } }} />
                                 <Typography 
                                     variant="h6" 
                                     sx={{ 
                                         fontWeight: 700, 
                                         color: '#1E1B4B',
-                                        fontFamily: '"Plus Jakarta Sans", sans-serif'
+                                        fontFamily: '"Plus Jakarta Sans", sans-serif',
+                                        fontSize: { xs: '1rem', sm: '1.25rem' }
                                     }}
                                 >
                                     Recent Notices & Announcements

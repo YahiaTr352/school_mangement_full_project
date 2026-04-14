@@ -51,7 +51,7 @@ const Homepage = () => {
                             <Typography 
                                 variant="h1" 
                                 sx={{ 
-                                    fontSize: { xs: '2.5rem', md: '3.5rem' },
+                                    fontSize: { xs: '2rem', md: '3.5rem' },
                                     fontWeight: 800,
                                     color: '#0F172A', // Slate 900
                                     lineHeight: 1.1,
@@ -74,9 +74,9 @@ const Homepage = () => {
                                 variant="body1" 
                                 sx={{ 
                                     color: '#64748B', // Slate 500
-                                    fontSize: '1.125rem',
+                                    fontSize: { xs: '1rem', sm: '1.125rem' },
                                     lineHeight: 1.6,
-                                    mb: 6
+                                    mb: { xs: 4, md: 6 }
                                 }}
                             >
                                 A comprehensive platform designed to streamline school administration, 

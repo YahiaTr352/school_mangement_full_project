@@ -59,20 +59,26 @@ const AddNotice = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
         >
-            <Box sx={{ mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <Stack direction="row" alignItems="center" spacing={2}>
+            <Box sx={{ mb: { xs: 3, sm: 4 }, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <Stack direction="row" alignItems="center" spacing={{ xs: 1.5, sm: 2 }}>
                     <IconButton onClick={() => navigate(-1)} sx={{ 
                         color: '#6366F1',
                         backgroundColor: '#EEF2FF',
+                        p: { xs: 0.8, sm: 1.2 },
                         '&:hover': { backgroundColor: '#E0E7FF' }
                     }}>
-                        <ArrowBackIcon />
+                        <ArrowBackIcon sx={{ fontSize: { xs: 20, sm: 24 } }} />
                     </IconButton>
                     <Box>
-                        <Typography variant="h4" sx={{ fontWeight: 800, color: '#1E1B4B', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
+                        <Typography variant="h4" sx={{ 
+                            fontWeight: 800, 
+                            color: '#1E1B4B', 
+                            fontFamily: '"Plus Jakarta Sans", sans-serif',
+                            fontSize: { xs: '1.5rem', sm: '2rem', md: '2.125rem' }
+                        }}>
                             Add Notice
                         </Typography>
-                        <Typography variant="body1" sx={{ color: '#64748B' }}>
+                        <Typography variant="body1" sx={{ color: '#64748B', fontSize: { xs: '0.8rem', sm: '1rem' } }}>
                             Post an announcement to the school board
                         </Typography>
                     </Box>
@@ -80,24 +86,26 @@ const AddNotice = () => {
             </Box>
 
             <StyledPaper elevation={0}>
-                <Box sx={{ textAlign: 'center', mb: 4 }}>
+                <Box sx={{ textAlign: 'center', mb: { xs: 3, sm: 4 } }}>
                     <Box sx={{ 
-                        width: 80, height: 80, mx: 'auto', mb: 2, 
+                        width: { xs: 60, sm: 80 }, 
+                        height: { xs: 60, sm: 80 }, 
+                        mx: 'auto', mb: 2, 
                         bgcolor: '#EEF2FF', color: '#6366F1',
                         borderRadius: '20px', display: 'flex',
                         alignItems: 'center', justifyContent: 'center'
                     }}>
-                        <AssignmentIcon sx={{ fontSize: 40 }} />
+                        <AssignmentIcon sx={{ fontSize: { xs: 30, sm: 40 } }} />
                     </Box>
-                    <Typography variant="h5" sx={{ fontWeight: 700, color: '#1E1B4B' }}>
+                    <Typography variant="h5" sx={{ fontWeight: 700, color: '#1E1B4B', fontSize: { xs: '1.1rem', sm: '1.5rem' } }}>
                         Notice Details
                     </Typography>
                 </Box>
 
-                <Divider sx={{ mb: 4 }} />
+                <Divider sx={{ mb: { xs: 3, sm: 4 } }} />
 
                 <form onSubmit={submitHandler}>
-                    <Stack spacing={4}>
+                    <Stack spacing={{ xs: 3, sm: 4 }}>
                         <StyledTextField
                             fullWidth
                             label="Notice Title"
@@ -108,7 +116,7 @@ const AddNotice = () => {
                             required
                             InputProps={{
                                 startAdornment: (
-                                    <TitleIcon sx={{ color: '#94A3B8', mr: 1 }} />
+                                    <TitleIcon sx={{ color: '#94A3B8', mr: 1, fontSize: { xs: 20, sm: 24 } }} />
                                 ),
                             }}
                         />
@@ -125,7 +133,7 @@ const AddNotice = () => {
                             required
                             InputProps={{
                                 startAdornment: (
-                                    <DescriptionIcon sx={{ color: '#94A3B8', mr: 1, mt: 1, alignSelf: 'flex-start' }} />
+                                    <DescriptionIcon sx={{ color: '#94A3B8', mr: 1, mt: 1, alignSelf: 'flex-start', fontSize: { xs: 20, sm: 24 } }} />
                                 ),
                             }}
                         />
@@ -143,22 +151,26 @@ const AddNotice = () => {
                             }}
                             InputProps={{
                                 startAdornment: (
-                                    <CalendarTodayIcon sx={{ color: '#94A3B8', mr: 1 }} />
+                                    <CalendarTodayIcon sx={{ color: '#94A3B8', mr: 1, fontSize: { xs: 20, sm: 24 } }} />
                                 ),
                             }}
                         />
 
-                        <Box sx={{ display: 'flex', gap: 2 }}>
+                        <Box sx={{ 
+                            display: 'flex', 
+                            flexDirection: { xs: 'column-reverse', sm: 'row' },
+                            gap: 2 
+                        }}>
                             <Button
                                 fullWidth
-                                size="large"
                                 variant="outlined"
                                 onClick={() => navigate(-1)}
                                 sx={{
                                     borderRadius: '12px',
-                                    padding: '14px',
+                                    padding: { xs: '10px', sm: '14px' },
                                     textTransform: 'none',
                                     fontWeight: 600,
+                                    fontSize: { xs: '0.875rem', sm: '1rem' },
                                     color: '#64748B',
                                     borderColor: '#E2E8F0',
                                     '&:hover': { backgroundColor: '#F8FAFC', borderColor: '#CBD5E1' }
@@ -168,7 +180,6 @@ const AddNotice = () => {
                             </Button>
                             <Button
                                 fullWidth
-                                size="large"
                                 variant="contained"
                                 type="submit"
                                 disabled={loader}
@@ -177,10 +188,10 @@ const AddNotice = () => {
                                     backgroundColor: '#6366F1',
                                     '&:hover': { backgroundColor: '#4F46E5' },
                                     borderRadius: '12px',
-                                    padding: '14px',
+                                    padding: { xs: '10px', sm: '14px' },
                                     textTransform: 'none',
                                     fontWeight: 700,
-                                    fontSize: '1rem',
+                                    fontSize: { xs: '0.875rem', sm: '1rem' },
                                     boxShadow: '0 4px 6px -1px rgba(99, 102, 241, 0.3)',
                                 }}
                             >

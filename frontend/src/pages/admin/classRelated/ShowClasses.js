@@ -126,18 +126,30 @@ const ShowClasses = () => {
   ];
 
   return (
-    <Container maxWidth="xl" sx={{ py: 4 }}>
+    <Container maxWidth="xl" sx={{ py: { xs: 2, md: 4 } }}>
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Box sx={{ 
+            mb: 4, 
+            display: 'flex', 
+            flexDirection: { xs: 'column', sm: 'row' },
+            justifyContent: 'space-between', 
+            alignItems: { xs: 'flex-start', sm: 'center' },
+            gap: 2
+        }}>
           <Box>
-            <Typography variant="h4" sx={{ fontWeight: 800, color: '#1E1B4B', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
+            <Typography variant="h4" sx={{ 
+                fontWeight: 800, 
+                color: '#1E1B4B', 
+                fontFamily: '"Plus Jakarta Sans", sans-serif',
+                fontSize: { xs: '1.5rem', sm: '2rem', md: '2.125rem' }
+            }}>
               Classes Overview
             </Typography>
-            <Typography variant="body1" sx={{ color: '#64748B' }}>
+            <Typography variant="body1" sx={{ color: '#64748B', fontSize: { xs: '0.875rem', sm: '1rem' } }}>
               Manage and organize all your school's classes in one place.
             </Typography>
           </Box>
@@ -146,11 +158,14 @@ const ShowClasses = () => {
             startIcon={<AddIcon />}
             onClick={() => navigate("/Admin/addclass")}
             sx={{ 
-                borderRadius: '12px', 
+                borderRadius: '10px', 
                 backgroundColor: '#6366F1', 
                 textTransform: 'none', 
                 fontWeight: 700,
-                py: 1.5, px: 3,
+                py: { xs: 1, sm: 1.5 }, 
+                px: { xs: 2, sm: 3 },
+                fontSize: { xs: '0.875rem', sm: '1rem' },
+                width: { xs: '100%', sm: 'auto' },
                 boxShadow: '0 4px 6px -1px rgba(99, 102, 241, 0.3)',
                 '&:hover': { backgroundColor: '#4F46E5' }
             }}

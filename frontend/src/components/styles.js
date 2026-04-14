@@ -13,9 +13,17 @@ export const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.common.black,
         color: theme.palette.common.white,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 12,
+            padding: '12px 8px',
+        },
     },
     [`&.${tableCellClasses.body}`]: {
         fontSize: 14,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 12,
+            padding: '12px 8px',
+        },
     },
 }));
 
@@ -44,6 +52,10 @@ export const AppBar = styled(MuiAppBar, {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
+        [theme.breakpoints.down('sm')]: {
+            marginLeft: 0,
+            width: '100%',
+        },
     }),
 }));
 
@@ -58,6 +70,12 @@ export const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 
                 duration: theme.transitions.duration.enteringScreen,
             }),
             boxSizing: 'border-box',
+            [theme.breakpoints.down('sm')]: {
+                position: 'fixed',
+                width: '100%',
+                height: '100vh',
+                zIndex: theme.zIndex.modal + 1,
+            },
             ...(!open && {
                 overflowX: 'hidden',
                 transition: theme.transitions.create('width', {
@@ -67,6 +85,10 @@ export const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 
                 width: theme.spacing(7),
                 [theme.breakpoints.up('sm')]: {
                     width: theme.spacing(9),
+                },
+                [theme.breakpoints.down('sm')]: {
+                    width: 0,
+                    display: 'none',
                 },
             }),
         },

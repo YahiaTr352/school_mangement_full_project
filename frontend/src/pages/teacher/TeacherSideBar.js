@@ -9,31 +9,50 @@ import AnnouncementOutlinedIcon from '@mui/icons-material/AnnouncementOutlined';
 import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
 import { useSelector } from 'react-redux';
 
-const TeacherSideBar = () => {
+const TeacherSideBar = ({ toggleDrawer }) => {
     const { currentUser } = useSelector((state) => state.user);
     const sclassName = currentUser.teachSclass
 
     const location = useLocation();
+
+    const handleItemClick = () => {
+        if (window.innerWidth < 600) {
+            toggleDrawer();
+        }
+    };
+
     return (
         <>
             <React.Fragment>
-                <ListItemButton component={Link} to="/">
+                <ListItemButton component={Link} to="/" onClick={handleItemClick}>
                     <ListItemIcon>
-                        <HomeIcon color={location.pathname === ("/" || "/Teacher/dashboard") ? 'primary' : 'inherit'} />
+                        <HomeIcon color={location.pathname === "/" || location.pathname === "/Teacher/dashboard" ? 'primary' : 'inherit'} />
                     </ListItemIcon>
-                    <ListItemText primary="Home" />
+                    <ListItemText primary="Home" 
+                        primaryTypographyProps={{ 
+                            style: { color: (location.pathname === "/" || location.pathname === "/Teacher/dashboard") ? '#4338CA' : 'inherit', fontWeight: (location.pathname === "/" || location.pathname === "/Teacher/dashboard") ? '700' : 'normal' } 
+                        }} 
+                    />
                 </ListItemButton>
-                <ListItemButton component={Link} to="/Teacher/class">
+                <ListItemButton component={Link} to="/Teacher/class" onClick={handleItemClick}>
                     <ListItemIcon>
                         <ClassOutlinedIcon color={location.pathname.startsWith("/Teacher/class") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
-                    <ListItemText primary={`Class ${sclassName.sclassName}`} />
+                    <ListItemText primary={`Class ${sclassName.sclassName}`} 
+                        primaryTypographyProps={{ 
+                            style: { color: location.pathname.startsWith('/Teacher/class') ? '#4338CA' : 'inherit', fontWeight: location.pathname.startsWith('/Teacher/class') ? '700' : 'normal' } 
+                        }}
+                    />
                 </ListItemButton>
-                <ListItemButton component={Link} to="/Teacher/complain">
+                <ListItemButton component={Link} to="/Teacher/complain" onClick={handleItemClick}>
                     <ListItemIcon>
                         <AnnouncementOutlinedIcon color={location.pathname.startsWith("/Teacher/complain") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
-                    <ListItemText primary="Complain" />
+                    <ListItemText primary="Complain" 
+                        primaryTypographyProps={{ 
+                            style: { color: location.pathname.startsWith('/Teacher/complain') ? '#4338CA' : 'inherit', fontWeight: location.pathname.startsWith('/Teacher/complain') ? '700' : 'normal' } 
+                        }}
+                    />
                 </ListItemButton>
             </React.Fragment>
             <Divider sx={{ my: 1 }} />
@@ -41,17 +60,25 @@ const TeacherSideBar = () => {
                 <ListSubheader component="div" inset>
                     User
                 </ListSubheader>
-                <ListItemButton component={Link} to="/Teacher/profile">
+                <ListItemButton component={Link} to="/Teacher/profile" onClick={handleItemClick}>
                     <ListItemIcon>
                         <AccountCircleOutlinedIcon color={location.pathname.startsWith("/Teacher/profile") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
-                    <ListItemText primary="Profile" />
+                    <ListItemText primary="Profile" 
+                        primaryTypographyProps={{ 
+                            style: { color: location.pathname.startsWith('/Teacher/profile') ? '#4338CA' : 'inherit', fontWeight: location.pathname.startsWith('/Teacher/profile') ? '700' : 'normal' } 
+                        }}
+                    />
                 </ListItemButton>
-                <ListItemButton component={Link} to="/logout">
+                <ListItemButton component={Link} to="/logout" onClick={handleItemClick}>
                     <ListItemIcon>
                         <ExitToAppIcon color={location.pathname.startsWith("/logout") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
-                    <ListItemText primary="Logout" />
+                    <ListItemText primary="Logout" 
+                        primaryTypographyProps={{ 
+                            style: { color: location.pathname.startsWith('/logout') ? '#4338CA' : 'inherit', fontWeight: location.pathname.startsWith('/logout') ? '700' : 'normal' } 
+                        }}
+                    />
                 </ListItemButton>
             </React.Fragment>
         </>

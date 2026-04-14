@@ -108,7 +108,12 @@ const StudentExamMarks = ({ situation }) => {
                                 <ArrowBackIcon />
                             </IconButton>
                             <Box>
-                                <Typography variant="h4" sx={{ fontWeight: 800, color: '#1E1B4B', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
+                                <Typography variant="h4" sx={{ 
+                                    fontWeight: 800, 
+                                    color: '#1E1B4B', 
+                                    fontFamily: '"Plus Jakarta Sans", sans-serif',
+                                    fontSize: { xs: '1.5rem', sm: '2rem', md: '2.125rem' }
+                                }}>
                                     Upload Marks
                                 </Typography>
                             </Box>
@@ -200,10 +205,10 @@ const StudentExamMarks = ({ situation }) => {
                                         backgroundColor: '#6366F1',
                                         '&:hover': { backgroundColor: '#4F46E5' },
                                         borderRadius: '12px',
-                                        padding: '14px',
+                                        padding: { xs: '10px', sm: '14px' },
                                         textTransform: 'none',
                                         fontWeight: 700,
-                                        fontSize: '1rem',
+                                        fontSize: { xs: '0.875rem', sm: '1rem' },
                                         boxShadow: '0 4px 6px -1px rgba(99, 102, 241, 0.3)',
                                         transition: 'all 0.2s'
                                     }}

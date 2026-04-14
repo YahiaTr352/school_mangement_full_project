@@ -73,7 +73,7 @@ const ShowTeachers = () => {
     ];
 
     return (
-        <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
+        <Container maxWidth="xl" sx={{ mt: { xs: 2, md: 4 }, mb: { xs: 2, md: 4 } }}>
             {loading ? (
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 10 }}>
                     <CircularProgress sx={{ color: '#6366F1' }} />
@@ -84,22 +84,29 @@ const ShowTeachers = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 4 }}>
+                    <Stack 
+                        direction={{ xs: 'column', sm: 'row' }} 
+                        justifyContent="space-between" 
+                        alignItems={{ xs: 'flex-start', sm: 'center' }} 
+                        spacing={3} 
+                        sx={{ mb: 4 }}
+                    >
                         <Box>
                             <Stack direction="row" alignItems="center" spacing={1.5} sx={{ mb: 1 }}>
-                                <GroupIcon sx={{ color: '#6366F1', fontSize: 32 }} />
+                                <GroupIcon sx={{ color: '#6366F1', fontSize: { xs: 28, sm: 32 } }} />
                                 <Typography 
                                     variant="h4" 
                                     sx={{ 
                                         fontWeight: 800, 
                                         color: '#1E1B4B', 
-                                        fontFamily: '"Plus Jakarta Sans", sans-serif'
+                                        fontFamily: '"Plus Jakarta Sans", sans-serif',
+                                        fontSize: { xs: '1.5rem', sm: '2rem', md: '2.125rem' }
                                     }}
                                 >
                                     Teachers List
                                 </Typography>
                             </Stack>
-                            <Typography variant="body1" sx={{ color: '#64748B' }}>
+                            <Typography variant="body1" sx={{ color: '#64748B', fontSize: { xs: '0.875rem', sm: '1rem' } }}>
                                 Manage and view all faculty members of <Box component="span" sx={{ fontWeight: 700, color: '#6366F1' }}>{currentUser.schoolName}</Box>
                             </Typography>
                         </Box>
@@ -109,13 +116,14 @@ const ShowTeachers = () => {
                             startIcon={<AddIcon />}
                             onClick={() => navigate("/Admin/teachers/chooseclass")}
                             sx={{
+                                width: { xs: '100%', sm: 'auto' },
                                 backgroundColor: '#6366F1',
                                 '&:hover': { backgroundColor: '#4F46E5' },
                                 borderRadius: '12px',
-                                padding: '10px 24px',
+                                padding: { xs: '10px 16px', sm: '8px 20px' },
                                 textTransform: 'none',
                                 fontWeight: 700,
-                                fontSize: '0.95rem',
+                                fontSize: { xs: '0.875rem', sm: '0.9rem' },
                                 boxShadow: '0 4px 6px -1px rgba(99, 102, 241, 0.3)'
                             }}
                         >

@@ -97,22 +97,27 @@ const AddStudent = ({ situation }) => {
     }, [status, navigate, error, response, dispatch]);
 
     return (
-        <Container maxWidth="sm" sx={{ mt: 4, mb: 4 }}>
+        <Container maxWidth="sm" sx={{ mt: { xs: 2, md: 4 }, mb: { xs: 2, md: 4 } }}>
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <Box sx={{ mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <Stack direction="row" alignItems="center" spacing={2}>
-                        <IconButton onClick={() => navigate(-1)} sx={{ color: '#6366F1' }}>
+                <Box sx={{ mb: { xs: 3, md: 4 }, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <Stack direction="row" alignItems="center" spacing={{ xs: 1, sm: 2 }}>
+                        <IconButton onClick={() => navigate(-1)} sx={{ color: '#6366F1', p: { xs: 0.5, sm: 1 } }}>
                             <ArrowBackIcon />
                         </IconButton>
                         <Box>
-                            <Typography variant="h4" sx={{ fontWeight: 800, color: '#1E1B4B', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
+                            <Typography variant="h4" sx={{ 
+                                fontWeight: 800, 
+                                color: '#1E1B4B', 
+                                fontFamily: '"Plus Jakarta Sans", sans-serif',
+                                fontSize: { xs: '1.5rem', sm: '2rem', md: '2.125rem' }
+                            }}>
                                 Add New Student
                             </Typography>
-                            <Typography variant="body1" sx={{ color: '#64748B' }}>
+                            <Typography variant="body1" sx={{ color: '#64748B', fontSize: { xs: '0.875rem', sm: '1rem' } }}>
                                 {situation === "Class" ? "Enroll a student to the selected class" : "Register a new student to the system"}
                             </Typography>
                         </Box>
@@ -120,7 +125,7 @@ const AddStudent = ({ situation }) => {
                 </Box>
 
                 <Paper elevation={0} sx={{ 
-                    padding: '40px', 
+                    padding: { xs: '24px', sm: '40px' }, 
                     borderRadius: '24px !important', 
                     backgroundColor: '#FFFFFF !important',
                     boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important',
@@ -129,13 +134,13 @@ const AddStudent = ({ situation }) => {
                     <Box sx={{ textAlign: 'center', mb: 4 }}>
                         <Avatar 
                             sx={{ 
-                                width: 80, height: 80, mx: 'auto', mb: 2, 
+                                width: { xs: 60, sm: 80 }, height: { xs: 60, sm: 80 }, mx: 'auto', mb: 2, 
                                 bgcolor: '#EEF2FF', color: '#6366F1'
                             }}
                         >
-                            <GroupAddIcon sx={{ fontSize: 40 }} />
+                            <GroupAddIcon sx={{ fontSize: { xs: 30, sm: 40 } }} />
                         </Avatar>
-                        <Typography variant="h5" sx={{ fontWeight: 700, color: '#1E1B4B' }}>
+                        <Typography variant="h5" sx={{ fontWeight: 700, color: '#1E1B4B', fontSize: { xs: '1.25rem', sm: '1.5rem' } }}>
                             Student Registration
                         </Typography>
                     </Box>
@@ -201,7 +206,12 @@ const AddStudent = ({ situation }) => {
                                 sx={{ '& .MuiOutlinedInput-root': { borderRadius: '12px' } }}
                             />
 
-                            <Box sx={{ display: 'flex', gap: 2, pt: 2 }}>
+                            <Box sx={{ 
+                                display: 'flex', 
+                                flexDirection: { xs: 'column-reverse', sm: 'row' },
+                                gap: 2, 
+                                pt: 2 
+                            }}>
                                 <Button
                                     fullWidth
                                     size="large"
@@ -209,11 +219,12 @@ const AddStudent = ({ situation }) => {
                                     onClick={() => navigate(-1)}
                                     sx={{
                                         borderRadius: '12px',
-                                        padding: '14px',
+                                        padding: { xs: '10px', sm: '14px' },
                                         textTransform: 'none',
                                         fontWeight: 600,
                                         color: '#64748B',
                                         borderColor: '#E2E8F0',
+                                        fontSize: { xs: '0.875rem', sm: '1rem' },
                                         '&:hover': { backgroundColor: '#F8FAFC', borderColor: '#CBD5E1' }
                                     }}
                                 >
@@ -230,10 +241,10 @@ const AddStudent = ({ situation }) => {
                                         backgroundColor: '#6366F1',
                                         '&:hover': { backgroundColor: '#4F46E5' },
                                         borderRadius: '12px',
-                                        padding: '14px',
+                                        padding: { xs: '10px', sm: '14px' },
                                         textTransform: 'none',
                                         fontWeight: 700,
-                                        fontSize: '1rem',
+                                        fontSize: { xs: '0.875rem', sm: '1rem' },
                                         boxShadow: '0 4px 6px -1px rgba(99, 102, 241, 0.3)',
                                     }}
                                 >

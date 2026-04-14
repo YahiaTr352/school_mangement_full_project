@@ -87,7 +87,7 @@ const ChooseUser = ({ visitor }) => {
   return (
     <StyledRoot>
       <Container maxWidth="lg">
-        <Box sx={{ textAlign: 'center', mb: 8 }}>
+        <Box sx={{ textAlign: 'center', mb: { xs: 4, sm: 8 } }}>
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -99,7 +99,8 @@ const ChooseUser = ({ visitor }) => {
                         fontWeight: 800, 
                         color: '#1E1B4B', 
                         mb: 2,
-                        fontFamily: '"Plus Jakarta Sans", sans-serif'
+                        fontFamily: '"Plus Jakarta Sans", sans-serif',
+                        fontSize: { xs: '1.75rem', sm: '2.5rem', md: '3rem' }
                     }}
                 >
                     Choose Your Role
@@ -108,9 +109,10 @@ const ChooseUser = ({ visitor }) => {
                     variant="body1" 
                     sx={{ 
                         color: '#64748B', 
-                        fontSize: '1.1rem',
+                        fontSize: { xs: '0.9rem', sm: '1.1rem' },
                         maxWidth: '600px',
-                        mx: 'auto'
+                        mx: 'auto',
+                        px: 2
                     }}
                 >
                     Select how you would like to access the platform. Each portal is tailored to your specific needs.
@@ -203,12 +205,15 @@ const StyledRoot = styled('div')(({ theme }) => ({
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: '40px 30px',
+  [theme.breakpoints.down('sm')]: {
+    padding: '30px 20px',
+  },
   textAlign: 'center',
   cursor: 'pointer',
   borderRadius: '20px !important',
   backgroundColor: '#FFFFFF !important',
   boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05) !important',
-  transition: 'all 0.3s ease-in-out !important',
+  transition: 'all 0.2s ease-in-out !important',
   position: 'relative',
   height: '100%',
   display: 'flex',
@@ -223,6 +228,14 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 const IconWrapper = styled(Box)(({ theme }) => ({
   width: '90px',
   height: '90px',
+  [theme.breakpoints.down('sm')]: {
+    width: '70px',
+    height: '70px',
+    marginBottom: '16px',
+    '& svg': {
+        fontSize: '35px !important'
+    }
+  },
   borderRadius: '20px',
   display: 'flex',
   alignItems: 'center',

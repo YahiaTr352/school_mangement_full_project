@@ -5,7 +5,7 @@ import { getSubjectList } from '../../../redux/sclassRelated/sclassHandle';
 import { deleteUser } from '../../../redux/userRelated/userHandle';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import {
-    Paper, Box, IconButton, Container, Typography, Stack, Button
+    Paper, Box, IconButton, Container, Typography, Stack, Button, CircularProgress
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -86,10 +86,10 @@ const ShowSubjects = () => {
     ];
 
     return (
-        <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
+        <Container maxWidth="xl" sx={{ mt: { xs: 2, md: 4 }, mb: { xs: 2, md: 4 } }}>
             {loading ? (
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 10 }}>
-                    <Typography variant="h6" sx={{ color: '#64748B' }}>Loading subjects...</Typography>
+                    <CircularProgress sx={{ color: '#6366F1' }} />
                 </Box>
             ) : (
                 <motion.div
@@ -97,22 +97,29 @@ const ShowSubjects = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 4 }}>
+                    <Stack 
+                        direction={{ xs: 'column', sm: 'row' }} 
+                        justifyContent="space-between" 
+                        alignItems={{ xs: 'flex-start', sm: 'center' }} 
+                        spacing={3} 
+                        sx={{ mb: 4 }}
+                    >
                         <Box>
                             <Stack direction="row" alignItems="center" spacing={1.5} sx={{ mb: 1 }}>
-                                <LibraryBooksIcon sx={{ color: '#6366F1', fontSize: 32 }} />
+                                <LibraryBooksIcon sx={{ color: '#6366F1', fontSize: { xs: 28, sm: 32 } }} />
                                 <Typography 
                                     variant="h4" 
                                     sx={{ 
                                         fontWeight: 800, 
                                         color: '#1E1B4B', 
-                                        fontFamily: '"Plus Jakarta Sans", sans-serif'
+                                        fontFamily: '"Plus Jakarta Sans", sans-serif',
+                                        fontSize: { xs: '1.5rem', sm: '2rem', md: '2.125rem' }
                                     }}
                                 >
                                     Subjects List
                                 </Typography>
                             </Stack>
-                            <Typography variant="body1" sx={{ color: '#64748B' }}>
+                            <Typography variant="body1" sx={{ color: '#64748B', fontSize: { xs: '0.875rem', sm: '1rem' } }}>
                                 Manage and view all subjects offered in <Box component="span" sx={{ fontWeight: 700, color: '#6366F1' }}>{currentUser.schoolName}</Box>
                             </Typography>
                         </Box>
@@ -122,13 +129,14 @@ const ShowSubjects = () => {
                             startIcon={<PostAddIcon />}
                             onClick={() => navigate("/Admin/subjects/chooseclass")}
                             sx={{
+                                width: { xs: '100%', sm: 'auto' },
                                 backgroundColor: '#6366F1',
                                 '&:hover': { backgroundColor: '#4F46E5' },
                                 borderRadius: '12px',
-                                padding: '10px 24px',
+                                padding: { xs: '10px 16px', sm: '8px 20px' },
                                 textTransform: 'none',
                                 fontWeight: 700,
-                                fontSize: '0.95rem',
+                                fontSize: { xs: '0.875rem', sm: '0.9rem' },
                                 boxShadow: '0 4px 6px -1px rgba(99, 102, 241, 0.3)'
                             }}
                         >
